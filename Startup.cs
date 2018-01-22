@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LojaInformatica.Db.Contexto;
+using LojaInformatica.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,9 @@ namespace LojaInformatica
 
             services.AddEntityFrameworkNpgsql()
                 .AddDbContext<LojaInformaticaContext>(options => options.UseNpgsql(connectionString));
+                
+            services.UseLojaInformaticaDependencies();
+            
             services.AddMvc();
         }
 

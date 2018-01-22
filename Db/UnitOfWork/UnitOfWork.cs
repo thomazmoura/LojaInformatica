@@ -14,6 +14,9 @@ namespace LojaInformatica.Db.UnitOfWork
         private readonly LojaInformaticaContext _context;
         public UnitOfWork(LojaInformaticaContext context){
             _context = context;
+
+            AcoesPrevias = new Queue<Action>();
+            AcoesPosteriores = new Queue<Action>();
         }
 
         public void SalvarAlteracoes()

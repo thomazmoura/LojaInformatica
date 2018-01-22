@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LojaInformatica.Db.Contexto;
+using LojaInformatica.Filters;
 using LojaInformatica.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,8 +33,8 @@ namespace LojaInformatica
                 .AddDbContext<LojaInformaticaContext>(options => options.UseNpgsql(connectionString));
                 
             services.UseLojaInformaticaDependencies();
-            
-            services.AddMvc();
+
+            services.AddMvc(options => options.Filters.Add<UnitOfWorkFilter>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

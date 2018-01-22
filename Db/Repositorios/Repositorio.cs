@@ -1,29 +1,37 @@
 using System.Linq;
+using LojaInformatica.Db.Contexto;
 using LojaInformatica.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LojaInformatica.Db.Repositorios
 {
     public class Repositorio : IRepositorio
     {
-        public IQueryable<Cliente> Clientes => throw new System.NotImplementedException();
+        public IQueryable<Cliente> Clientes => _context.Clientes;
 
-        public IQueryable<Compra> Compras => throw new System.NotImplementedException();
+        public IQueryable<Compra> Compras => _context.Compras;
 
-        public IQueryable<Produto> Produtos => throw new System.NotImplementedException();
+        public IQueryable<Produto> Produtos => _context.Produtos;
 
-        public void Acrescentar<Entidade>(Entidade entidade)
-        {
-            throw new System.NotImplementedException();
+        private readonly LojaInformaticaContext _context;
+        public Repositorio(LojaInformaticaContext context){
+            _context = context;
         }
 
-        public void Atualizar<Entidade>(Entidade entidade)
+        public void Acrescentar<Entidade>(Entidade entidade) where Entidade: class
         {
-            throw new System.NotImplementedException();
+            _context.Set<Entidade>().Add(entidade);
         }
 
-        public void Remover<Entidade>(Entidade entidade)
+        public void Atualizar<Entidade>(Entidade entidade) where Entidade: class
         {
-            throw new System.NotImplementedException();
+            _context.Set<Entidade>().Attach(entidade);
+            _context.Entry(entidade).State = EntityState.Modified;
+        }
+
+        public void Remover<Entidade>(Entidade entidade) where Entidade: class
+        {
+            _context.Set<Entidade>().Remove(entidade);
         }
     }
 }

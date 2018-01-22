@@ -9,8 +9,8 @@ namespace LojaInformatica.Db.Repositorios
         IQueryable<Compra> Compras { get; }
         IQueryable<Produto> Produtos { get; }
 
-        void Acrescentar<Entidade>(Entidade entidade);
-        void Atualizar<Entidade>(Entidade entidade);
-        void Remover<Entidade>(Entidade entidade);
+        void Acrescentar<Entidade>(Entidade entidade) where Entidade: class;
+        void Atualizar<Entidade>(Entidade entidade) where Entidade: class;
+        void Remover<Entidade>(Entidade entidade) where Entidade: class;
     }
 }

@@ -1,8 +1,8 @@
-using LojaInformatica.Models;
+using LojaInformatica.Entidades;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace LojaInformatica.Db.Configuracao
+namespace LojaInformatica.Dados.Configuracao
 {
     public class ItemDaCompraConfiguracao : IEntityTypeConfiguration<ItemDaCompra>
     {

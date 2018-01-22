@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
-namespace LojaInformatica.Db.Migrations
+namespace LojaInformatica.Dados.Migrations
 {
     public partial class CriacaoDoBanco : Migration
     {

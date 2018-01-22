@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace LojaInformatica.Models
+namespace LojaInformatica.Entidades
 {
     public class Produto: Entidade
     {

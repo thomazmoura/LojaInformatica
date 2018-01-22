@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LojaInformatica.Db.Contexto;
+using LojaInformatica.Dados.Contexto;
 using LojaInformatica.Filters;
 using LojaInformatica.IoC;
 using Microsoft.AspNetCore.Builder;

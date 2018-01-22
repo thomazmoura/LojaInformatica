@@ -1,5 +1,5 @@
-using LojaInformatica.Db.Repositorios;
-using LojaInformatica.Db.UnitOfWork;
+using LojaInformatica.Dados.Repositorios;
+using LojaInformatica.Dados.UnitOfWork;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LojaInformatica.IoC

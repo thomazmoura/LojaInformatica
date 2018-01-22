@@ -1,4 +1,4 @@
-using LojaInformatica.Db.UnitOfWork;
+using LojaInformatica.Dados.UnitOfWork;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace LojaInformatica.Filters

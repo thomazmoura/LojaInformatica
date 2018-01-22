@@ -1,4 +1,4 @@
-namespace LojaInformatica.Models
+namespace LojaInformatica.Entidades
 {
     public class Imagem
     {

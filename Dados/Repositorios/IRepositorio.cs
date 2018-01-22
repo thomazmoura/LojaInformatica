@@ -1,7 +1,7 @@
 using System.Linq;
-using LojaInformatica.Models;
+using LojaInformatica.Entidades;
 
-namespace LojaInformatica.Db.Repositorios
+namespace LojaInformatica.Dados.Repositorios
 {
     public interface IRepositorio
     {

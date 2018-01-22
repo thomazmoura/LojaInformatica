@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace LojaInformatica.Models
+namespace LojaInformatica.Entidades
 {
     public class Cliente: Entidade
     {

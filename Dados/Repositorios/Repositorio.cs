@@ -1,9 +1,9 @@
 using System.Linq;
-using LojaInformatica.Db.Contexto;
-using LojaInformatica.Models;
+using LojaInformatica.Dados.Contexto;
+using LojaInformatica.Entidades;
 using Microsoft.EntityFrameworkCore;
 
-namespace LojaInformatica.Db.Repositorios
+namespace LojaInformatica.Dados.Repositorios
 {
     public class Repositorio : IRepositorio
     {

@@ -1,5 +1,5 @@
-using LojaInformatica.Db.Repositorios;
-using LojaInformatica.Models;
+using LojaInformatica.Dados.Repositorios;
+using LojaInformatica.Entidades;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LojaInformatica.Controllers

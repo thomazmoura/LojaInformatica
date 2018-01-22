@@ -19,6 +19,9 @@ namespace LojaInformatica.Models
         public int ProdutoId { get; set; }
         public decimal PrecoUnitario { get; set; }
         public int Quantidade { get; set; }
+
+        public virtual Produto Produto { get; set; }
+        public virtual Compra Compra { get; set; }
     }
 
     public static class ItemDaCompraExtensions{

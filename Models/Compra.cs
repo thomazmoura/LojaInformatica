@@ -4,9 +4,8 @@ using System.Linq;
 
 namespace LojaInformatica.Models
 {
-    public class Compra
+    public class Compra: Entidade
     {
-        public int Id { get; set; }
         public DateTime DataDaCompra { get; set; }
         public decimal TotalDaCompra => ItensDaCompra.SomaDosItens();
 

@@ -1,10 +1,10 @@
 using System;
+using System.Linq;
 
 namespace LojaInformatica.Models
 {
-    public class Cliente
+    public class Cliente: Entidade
     {
-        public int Id { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }
         public Guid ChaveDeAcesso { get; set; }

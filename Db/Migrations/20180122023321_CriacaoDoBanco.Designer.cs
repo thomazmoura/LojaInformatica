@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace LojaInformatica.Migrations
+namespace LojaInformatica.Db.Migrations
 {
     [DbContext(typeof(LojaInformaticaContext))]
-    [Migration("20180122004557_CriacaoDoBanco")]
+    [Migration("20180122023321_CriacaoDoBanco")]
     partial class CriacaoDoBanco
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

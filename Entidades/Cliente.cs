@@ -14,12 +14,12 @@ namespace LojaInformatica.Entidades
     {
         public static IQueryable<Cliente> PorNome(this IQueryable<Cliente> clientes, string nome)
         {
-            return clientes.Where(cliente => cliente.Nome.Contains(nome));
+            return clientes.Where(cliente => cliente.Nome.ToLower().Contains(nome.ToLower()));
         }
 
         public static IQueryable<Cliente> PorNomeExato(this IQueryable<Cliente> clientes, string nomeExato)
         {
-            return clientes.Where(cliente => cliente.Nome == nomeExato);
+            return clientes.Where(cliente => cliente.Nome.ToLower() == nomeExato.ToLower());
         }
     }
 }

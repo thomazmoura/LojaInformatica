@@ -20,6 +20,14 @@ namespace LojaInformatica.Controllers
             return Ok(clientes);
         }
 
+        [HttpGet("pornome/{nome}")]
+        public IActionResult GetPorNome(string nome)
+        {
+            var clientes = _repositorio.Clientes
+                .PorNome(nome);
+            return Ok(clientes);
+        }
+
         [HttpGet("{id}", Name = "ConsultarCliente")]
         public IActionResult Get(int id)
         {

@@ -11,8 +11,8 @@ namespace LojaInformatica.API.Dados
 
         public Queue<Action> AcoesPosteriores { get; private set; }
 
-        private readonly LojaInformaticaContexto _context;
-        public UnitOfWork(LojaInformaticaContexto context){
+        private readonly ContextoLojaInformatica _context;
+        public UnitOfWork(ContextoLojaInformatica context){
             _context = context;
 
             AcoesPrevias = new Queue<Action>();

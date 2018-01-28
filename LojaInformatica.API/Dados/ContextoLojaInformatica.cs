@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LojaInformatica.API.Dados
 {
-    public class LojaInformaticaContexto: DbContext
+    public class ContextoLojaInformatica: DbContext
     {
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Compra> Compras { get; set; }
         public DbSet<Produto> Produtos { get; set; }
 
-        public LojaInformaticaContexto(DbContextOptions<LojaInformaticaContexto> options) : base(options) { }
+        public ContextoLojaInformatica(DbContextOptions<ContextoLojaInformatica> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

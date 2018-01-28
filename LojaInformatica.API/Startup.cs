@@ -35,7 +35,7 @@ namespace LojaInformatica.API
             var connectionString = Configuration.GetConnectionString("LojaInformaticaContext");
 
             services.AddEntityFrameworkNpgsql()
-                .AddDbContext<LojaInformaticaContexto>(options =>
+                .AddDbContext<ContextoLojaInformatica>(options =>
                 {
                     options.UseNpgsql(connectionString);
                 });

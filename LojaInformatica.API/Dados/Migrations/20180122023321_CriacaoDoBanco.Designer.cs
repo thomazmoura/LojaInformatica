@@ -10,7 +10,7 @@ using System;
 
 namespace LojaInformatica.API.Dados.Migrations
 {
-    [DbContext(typeof(LojaInformaticaContexto))]
+    [DbContext(typeof(ContextoLojaInformatica))]
     [Migration("20180122023321_CriacaoDoBanco")]
     partial class CriacaoDoBanco
     {

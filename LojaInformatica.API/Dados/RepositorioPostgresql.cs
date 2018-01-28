@@ -14,8 +14,8 @@ namespace LojaInformatica.API.Dados
 
         public IQueryable<Produto> Produtos => _context.Produtos;
 
-        private readonly LojaInformaticaContexto _context;
-        public RepositorioPostgresql(LojaInformaticaContexto context){
+        private readonly ContextoLojaInformatica _context;
+        public RepositorioPostgresql(ContextoLojaInformatica context){
             _context = context;
         }
 

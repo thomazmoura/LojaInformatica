@@ -10,7 +10,7 @@ using System;
 
 namespace LojaInformatica.API.Dados.Migrations
 {
-    [DbContext(typeof(LojaInformaticaContexto))]
+    [DbContext(typeof(ContextoLojaInformatica))]
     partial class LojaInformaticaContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

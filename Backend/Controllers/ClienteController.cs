@@ -13,18 +13,12 @@ namespace LojaInformatica.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(string nome)
         {
-            var clientes = _repositorio.Clientes
-                .EmMemoria();
-            return Ok(clientes);
-        }
+            var clientes = _repositorio.Clientes;
+            if(!string.IsNullOrEmpty(nome))
+                clientes = clientes.PorNome(nome);
 
-        [HttpGet("pornome/{nome}")]
-        public IActionResult GetPorNome(string nome)
-        {
-            var clientes = _repositorio.Clientes
-                .PorNome(nome);
             return Ok(clientes);
         }
 

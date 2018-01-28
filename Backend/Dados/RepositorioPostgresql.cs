@@ -19,19 +19,28 @@ namespace LojaInformatica.Dados
             _context = context;
         }
 
-        public void Acrescentar<T>(T entidade) where T: class
+        public void Acrescentar<T>(T entidade) where T: Entidade
         {
             _context.Set<T>().Add(entidade);
         }
 
-        public void Atualizar<T>(T entidade) where T: class
+        public void Atualizar<T>(T entidade) where T: Entidade
         {
             _context.Set<T>().Attach(entidade);
             _context.Entry(entidade).State = EntityState.Modified;
         }
 
-        public void Remover<T>(T entidade) where T: class
+        public void Remover<T>(T entidade) where T: Entidade
         {
+            _context.Set<T>().Remove(entidade);
+        }
+
+        public void Remover<T>(int id) where T: Entidade, new()
+        {
+            var entidade = new T()
+            {
+                Id = id
+            };
             _context.Set<T>().Remove(entidade);
         }
     }

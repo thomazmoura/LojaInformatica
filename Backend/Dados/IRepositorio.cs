@@ -10,8 +10,9 @@ namespace LojaInformatica.Dados
         IQueryable<Compra> Compras { get; }
         IQueryable<Produto> Produtos { get; }
 
-        void Acrescentar<Entidade>(Entidade entidade) where Entidade: class;
-        void Atualizar<Entidade>(Entidade entidade) where Entidade: class;
-        void Remover<Entidade>(Entidade entidade) where Entidade: class;
+        void Acrescentar<TEntidade>(TEntidade entidade) where TEntidade: Entidade;
+        void Atualizar<TEntidade>(TEntidade entidade) where TEntidade: Entidade;
+        void Remover<TEntidade>(TEntidade entidade) where TEntidade: Entidade;
+        void Remover<TEntidade>(int id) where TEntidade: Entidade, new();
     }
 }

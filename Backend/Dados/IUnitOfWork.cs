@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace LojaInformatica.Dados.UnitOfWork
+namespace LojaInformatica.Dados
 {
     public interface IUnitOfWork
     {

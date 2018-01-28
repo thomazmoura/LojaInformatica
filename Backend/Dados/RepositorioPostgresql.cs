@@ -1,10 +1,10 @@
 using System;
 using System.Linq;
-using LojaInformatica.Dados.Contexto;
+using LojaInformatica.Dados;
 using LojaInformatica.Entidades;
 using Microsoft.EntityFrameworkCore;
 
-namespace LojaInformatica.Dados.Repositorios
+namespace LojaInformatica.Dados
 {
     public class RepositorioPostgresql : IRepositorio
     {
@@ -14,8 +14,8 @@ namespace LojaInformatica.Dados.Repositorios
 
         public IQueryable<Produto> Produtos => _context.Produtos;
 
-        private readonly LojaInformaticaContext _context;
-        public RepositorioPostgresql(LojaInformaticaContext context){
+        private readonly LojaInformaticaContexto _context;
+        public RepositorioPostgresql(LojaInformaticaContexto context){
             _context = context;
         }
 

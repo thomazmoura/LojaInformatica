@@ -1,4 +1,4 @@
-using LojaInformatica.Dados.Repositorios;
+using LojaInformatica.Dados;
 using LojaInformatica.Entidades;
 using Microsoft.AspNetCore.Mvc;
 

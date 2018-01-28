@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LojaInformatica.Dados.Contexto;
+using LojaInformatica.Dados;
 using LojaInformatica.Filters;
 using LojaInformatica.IoC;
 using Microsoft.AspNetCore.Builder;
@@ -35,7 +35,7 @@ namespace LojaInformatica
             var connectionString = Configuration.GetConnectionString("LojaInformaticaContext");
 
             services.AddEntityFrameworkNpgsql()
-                .AddDbContext<LojaInformaticaContext>(options =>
+                .AddDbContext<LojaInformaticaContexto>(options =>
                 {
                     options.UseNpgsql(connectionString);
                 });

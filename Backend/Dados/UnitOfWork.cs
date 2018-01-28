@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using LojaInformatica.Dados.Contexto;
+using LojaInformatica.Dados;
 
-namespace LojaInformatica.Dados.UnitOfWork
+namespace LojaInformatica.Dados
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -11,8 +11,8 @@ namespace LojaInformatica.Dados.UnitOfWork
 
         public Queue<Action> AcoesPosteriores { get; private set; }
 
-        private readonly LojaInformaticaContext _context;
-        public UnitOfWork(LojaInformaticaContext context){
+        private readonly LojaInformaticaContexto _context;
+        public UnitOfWork(LojaInformaticaContexto context){
             _context = context;
 
             AcoesPrevias = new Queue<Action>();

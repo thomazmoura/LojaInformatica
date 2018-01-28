@@ -2,15 +2,15 @@ using LojaInformatica.Dados.Configuracao;
 using LojaInformatica.Entidades;
 using Microsoft.EntityFrameworkCore;
 
-namespace LojaInformatica.Dados.Contexto
+namespace LojaInformatica.Dados
 {
-    public class LojaInformaticaContext: DbContext
+    public class LojaInformaticaContexto: DbContext
     {
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Compra> Compras { get; set; }
         public DbSet<Produto> Produtos { get; set; }
 
-        public LojaInformaticaContext(DbContextOptions<LojaInformaticaContext> options) : base(options) { }
+        public LojaInformaticaContexto(DbContextOptions<LojaInformaticaContexto> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -11,5 +11,13 @@ namespace LojaInformatica.Entidades
         public virtual Imagem ImagemPrincipal { get; set; }
         public virtual ICollection<Imagem> Imagens { get; set; }
         public virtual ICollection<ItemDaCompra> ItemComprados { get; set; }
+
+        public bool EstaValidoParaInsercao =>
+            Id == 0 && Preco > 0 && 
+            !string.IsNullOrWhiteSpace(Nome);
+
+        public bool EstaValidoParaAtualizacao =>
+            Id != 0 && Preco > 0 && 
+            !string.IsNullOrWhiteSpace(Nome);
     }
 }

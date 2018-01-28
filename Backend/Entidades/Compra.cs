@@ -7,7 +7,7 @@ namespace LojaInformatica.Entidades
     public class Compra: Entidade
     {
         public DateTime DataDaCompra { get; set; }
-        public decimal TotalDaCompra => ItensDaCompra.SomaDosItens();
+        public decimal ValorTotalDaCompra => ItensDaCompra.Sum(item => item.PrecoUnitario * item.Quantidade);
 
         public virtual ICollection<ItemDaCompra> ItensDaCompra { get; set; }
     }
@@ -21,11 +21,5 @@ namespace LojaInformatica.Entidades
 
         public virtual Produto Produto { get; set; }
         public virtual Compra Compra { get; set; }
-    }
-
-    public static class ItemDaCompraExtensions{
-        public static decimal SomaDosItens(this IEnumerable<ItemDaCompra> itensDaCompra){
-            return itensDaCompra.Sum(item => item.PrecoUnitario * item.Quantidade);
-        }
     }
 }

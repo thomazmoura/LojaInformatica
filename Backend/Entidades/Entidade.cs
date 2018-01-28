@@ -15,6 +15,11 @@ namespace LojaInformatica.Entidades
             return entidades.ToList();
         }
 
+        public static bool ConstaNoBanco(this IQueryable<Entidade> entidades, int id)
+        {
+            return entidades.Any(entidade => entidade.Id == id);
+        }
+
         public static Entidade PorId(this IQueryable<Entidade> entidades, int id)
         {
             return entidades.SingleOrDefault(entidade => entidade.Id == id);

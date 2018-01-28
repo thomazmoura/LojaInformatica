@@ -38,5 +38,33 @@ namespace LojaInformatica.Controllers
                 id = cliente.Id
             }, cliente);
         }
+
+        [HttpPut()]
+        public IActionResult Put([FromBody] Cliente cliente)
+        {
+            if(cliente == null || !cliente.EstaValidoParaAtualizacao)
+                return BadRequest();
+
+            if(!_repositorio.Clientes.ConstaNoBanco(cliente.Id))
+                return NotFound();
+
+            _repositorio.Atualizar(cliente);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            if(id <= 0)
+                return BadRequest();
+
+            if(!_repositorio.Clientes.ConstaNoBanco(id))
+                return NotFound();
+
+            _repositorio.Remover(new Cliente { Id = id });
+
+            return NoContent();
+        }
     }
 }

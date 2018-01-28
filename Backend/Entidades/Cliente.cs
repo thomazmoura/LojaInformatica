@@ -8,6 +8,8 @@ namespace LojaInformatica.Entidades
         public string Nome { get; set; }
         public string Email { get; set; }
         public Guid ChaveDeAcesso { get; set; }
+
+        public bool EstaValidoParaAtualizacao =>  Id != 0 && !string.IsNullOrWhiteSpace(Nome);
     }
 
     public static class ClienteExtensions 

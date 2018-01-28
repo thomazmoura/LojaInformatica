@@ -12,14 +12,14 @@ namespace LojaInformatica.Entidades
 
     public static class ClienteExtensions 
     {
-        public static IQueryable<Cliente> PorNome(this IQueryable<Cliente> clientes, string nome)
+        public static IQueryable<Cliente> PorNome(this IQueryable<Cliente> clientes, Func<IQueryable<Cliente>, string, IQueryable<Cliente>> compararString, string nome)
         {
-            return clientes.Where(cliente => cliente.Nome.ToLower().Contains(nome.ToLower()));
+            return compararString(clientes, nome);
         }
 
         public static IQueryable<Cliente> PorNomeExato(this IQueryable<Cliente> clientes, string nomeExato)
         {
-            return clientes.Where(cliente => cliente.Nome.ToLower() == nomeExato.ToLower());
+            return clientes.Where(cliente => cliente.Nome == nomeExato);
         }
     }
 }

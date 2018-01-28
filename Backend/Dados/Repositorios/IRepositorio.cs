@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using LojaInformatica.Entidades;
 
@@ -12,5 +13,7 @@ namespace LojaInformatica.Dados.Repositorios
         void Acrescentar<Entidade>(Entidade entidade) where Entidade: class;
         void Atualizar<Entidade>(Entidade entidade) where Entidade: class;
         void Remover<Entidade>(Entidade entidade) where Entidade: class;
+
+        Func<IQueryable<Cliente>, string, IQueryable<Cliente>> compararString { get; }
     }
 }

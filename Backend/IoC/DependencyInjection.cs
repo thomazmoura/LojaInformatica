@@ -8,7 +8,7 @@ namespace LojaInformatica.IoC
     {
         public static void UseLojaInformaticaDependencies(this IServiceCollection services)
         {
-            services.AddScoped<IRepositorio, Repositorio>();
+            services.AddScoped<IRepositorio, RepositorioPostgresql>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }

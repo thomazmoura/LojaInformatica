@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LojaInformatica.Entidades
+namespace LojaInformatica.API.Entidades
 {
     public class Compra: Entidade
     {

@@ -1,10 +1,10 @@
 using System;
 using System.Linq;
-using LojaInformatica.Dados;
-using LojaInformatica.Entidades;
+using LojaInformatica.API.Dados;
+using LojaInformatica.API.Entidades;
 using Microsoft.EntityFrameworkCore;
 
-namespace LojaInformatica.Dados
+namespace LojaInformatica.API.Dados
 {
     public class RepositorioPostgresql : IRepositorio
     {

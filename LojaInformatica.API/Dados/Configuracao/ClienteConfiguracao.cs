@@ -1,8 +1,8 @@
-using LojaInformatica.Entidades;
+using LojaInformatica.API.Entidades;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace LojaInformatica.Dados.Configuracao
+namespace LojaInformatica.API.Dados.Configuracao
 {
     public class ClienteConfiguracao : IEntityTypeConfiguration<Cliente>
     {

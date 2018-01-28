@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using LojaInformatica.Dados;
+using LojaInformatica.API.Dados;
 
-namespace LojaInformatica.Dados
+namespace LojaInformatica.API.Dados
 {
     public class UnitOfWork : IUnitOfWork
     {

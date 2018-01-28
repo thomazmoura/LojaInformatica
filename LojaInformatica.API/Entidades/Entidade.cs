@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LojaInformatica.Entidades
+namespace LojaInformatica.API.Entidades
 {
     public abstract class Entidade
     {

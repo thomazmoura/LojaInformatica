@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LojaInformatica.Dados;
-using LojaInformatica.Filters;
-using LojaInformatica.IoC;
+using LojaInformatica.API.Dados;
+using LojaInformatica.API.Filters;
+using LojaInformatica.API.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace LojaInformatica
+namespace LojaInformatica.API
 {
     public class Startup
     {

@@ -1,4 +1,4 @@
-namespace LojaInformatica.Entidades
+namespace LojaInformatica.API.Entidades
 {
     public class Imagem
     {

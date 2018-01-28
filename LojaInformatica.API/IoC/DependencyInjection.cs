@@ -1,7 +1,7 @@
-using LojaInformatica.Dados;
+using LojaInformatica.API.Dados;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LojaInformatica.IoC
+namespace LojaInformatica.API.IoC
 {
     public static class DependencyInjection
     {

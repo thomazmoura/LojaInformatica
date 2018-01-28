@@ -1,8 +1,8 @@
-using LojaInformatica.Dados;
-using LojaInformatica.Entidades;
+using LojaInformatica.API.Dados;
+using LojaInformatica.API.Entidades;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LojaInformatica.Controllers
+namespace LojaInformatica.API.Controllers
 {
     [Route("api/clientes")]
     public class ClienteController: Controller

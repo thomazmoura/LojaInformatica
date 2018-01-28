@@ -1,8 +1,8 @@
-using LojaInformatica.Dados.Configuracao;
-using LojaInformatica.Entidades;
+using LojaInformatica.API.Dados.Configuracao;
+using LojaInformatica.API.Entidades;
 using Microsoft.EntityFrameworkCore;
 
-namespace LojaInformatica.Dados
+namespace LojaInformatica.API.Dados
 {
     public class LojaInformaticaContexto: DbContext
     {

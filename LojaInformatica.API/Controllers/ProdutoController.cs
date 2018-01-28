@@ -1,8 +1,8 @@
-using LojaInformatica.Dados;
-using LojaInformatica.Entidades;
+using LojaInformatica.API.Dados;
+using LojaInformatica.API.Entidades;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Backend.Controllers
+namespace LojaInformatica.API.Controllers
 {
     [Route("api/produtos")]
     public class ProdutoController: Controller

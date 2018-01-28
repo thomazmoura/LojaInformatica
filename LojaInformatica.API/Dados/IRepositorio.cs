@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
-using LojaInformatica.Entidades;
+using LojaInformatica.API.Entidades;
 
-namespace LojaInformatica.Dados
+namespace LojaInformatica.API.Dados
 {
     public interface IRepositorio
     {

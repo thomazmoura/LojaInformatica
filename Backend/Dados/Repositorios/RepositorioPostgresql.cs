@@ -14,14 +14,6 @@ namespace LojaInformatica.Dados.Repositorios
 
         public IQueryable<Produto> Produtos => _context.Produtos;
 
-        public Func<IQueryable<Cliente>, string, IQueryable<Cliente>> compararString
-        {
-            get
-            {
-                return (clientes, texto) => clientes.Where(cliente => EF.Functions.ILike(cliente.Nome, $"%{texto}%"));
-            }            
-        }
-
         private readonly LojaInformaticaContext _context;
         public RepositorioPostgresql(LojaInformaticaContext context){
             _context = context;

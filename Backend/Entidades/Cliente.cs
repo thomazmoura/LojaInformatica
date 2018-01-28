@@ -12,9 +12,10 @@ namespace LojaInformatica.Entidades
 
     public static class ClienteExtensions 
     {
-        public static IQueryable<Cliente> PorNome(this IQueryable<Cliente> clientes, Func<IQueryable<Cliente>, string, IQueryable<Cliente>> compararString, string nome)
+        public static IQueryable<Cliente> PorNome(this IQueryable<Cliente> clientes, string nome)
         {
-            return compararString(clientes, nome);
+            var nomeMinusculo = nome.ToLower();
+            return clientes.Where(cliente => cliente.Nome.ToLower().Contains(nomeMinusculo));
         }
 
         public static IQueryable<Cliente> PorNomeExato(this IQueryable<Cliente> clientes, string nomeExato)

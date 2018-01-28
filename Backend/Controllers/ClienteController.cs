@@ -24,7 +24,7 @@ namespace LojaInformatica.Controllers
         public IActionResult GetPorNome(string nome)
         {
             var clientes = _repositorio.Clientes
-                .PorNome(_repositorio.compararString, nome);
+                .PorNome(nome);
             return Ok(clientes);
         }
 

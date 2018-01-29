@@ -10,24 +10,15 @@ using Xunit;
 
 namespace LojaInformatica.API.Testes
 {
-    public class ClienteApiTests
+    public class ClienteApiTests : ApiTests<Cliente>
     {
-        private readonly AmbienteDeTeste _ambienteDeTeste;
-        private readonly ClienteController _controller;
+        private ClienteController _clienteController => _controller as ClienteController;
 
-        public ClienteApiTests()
+        public ClienteApiTests() { }
+
+        protected override IEntidadeApi<Cliente> ObterApiController()
         {
-            _ambienteDeTeste = AmbienteDeTeste.NovoAmbiente();
-            _controller = new ClienteController(_ambienteDeTeste.Repositorio);
-        }
-
-        [Fact]
-        public void Clientes_Get_Deve_retornar_uma_lista_vazia_quando_não_houver_nenhum_cliente_registrado()
-        {
-            var resultado = _controller.Get() as OkObjectResult;
-            var clientes = resultado.Value as IEnumerable<Cliente>;
-
-            clientes.Should().BeEmpty();
+            return new ClienteController(_ambienteDeTeste.Repositorio);
         }
 
         [Fact]
@@ -50,7 +41,7 @@ namespace LojaInformatica.API.Testes
             var clientesFiltrados = ExemplosDeClientes.AsQueryable()
                 .PorNome(filtroDeNome);
 
-            var resultado = _controller.Get(filtroDeNome) as OkObjectResult;
+            var resultado = _clienteController.Get(filtroDeNome) as OkObjectResult;
             var clientes = resultado.Value as IEnumerable<Cliente>;
 
             clientes.Should().BeEquivalentTo(clientesFiltrados);

@@ -8,12 +8,12 @@ using LojaInformatica.API.Testes.Configuracao;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
-namespace LojaInformatica.API.Testes
+namespace LojaInformatica.API.Testes.Controllers
 {
-    public class ClienteApiTests : ApiTests<Cliente>
+    public class ClienteControllerTests : ApiControllerTests<Cliente>
     {
         private ClienteController _clienteController => _controller as ClienteController;
-        public ClienteApiTests() { }
+        public ClienteControllerTests() { }
 
         protected override IEntidadeApi<Cliente> ObterApiController()
         {

@@ -7,9 +7,9 @@ using LojaInformatica.API.Testes.Configuracao;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
-namespace LojaInformatica.API.Testes
+namespace LojaInformatica.API.Testes.Controllers
 {
-    public abstract class ApiTests<TEntidade> where TEntidade : Entidade
+    public abstract class ApiControllerTests<TEntidade> where TEntidade : Entidade
     {
         protected abstract IEntidadeApi<TEntidade> ObterApiController();
         protected abstract IEnumerable<TEntidade> ObterExemploEntidades();
@@ -17,7 +17,7 @@ namespace LojaInformatica.API.Testes
 
         protected readonly AmbienteDeTeste _ambienteDeTeste;
         protected readonly IEntidadeApi<TEntidade> _controller;
-        protected ApiTests()
+        protected ApiControllerTests()
         {
             _ambienteDeTeste = AmbienteDeTeste.NovoAmbiente();
             _controller = ObterApiController();

@@ -4,7 +4,7 @@ Param(
     [string]$repository
 )
 
-$pushUrl = "https://$token@github.com/thomazpadilha/$repository.git";
+$pushUrl = "https://$token@github.com/thomazmoura/$repository.git";
 $branchRef = "head:$branch"
 
 if ($branch.Contains("dev") -Or $branch.Contains("master")) {

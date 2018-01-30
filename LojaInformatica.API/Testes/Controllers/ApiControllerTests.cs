@@ -27,25 +27,25 @@ namespace LojaInformatica.API.Testes.Controllers
         public void Api_Get_Deve_retornar_uma_lista_vazia_quando_não_houver_dados_no_banco()
         {
             var resultado = _controller.Get() as OkObjectResult;
-            var clientes = resultado.Value as IEnumerable<TEntidade>;
+            var entidades = resultado.Value as IEnumerable<TEntidade>;
 
-            clientes.Should().BeEmpty();
+            entidades.Should().BeEmpty();
         }
 
         [Fact]
-        public void Clientes_Get_Deve_retornar_a_lista_de_clientes_registrada_quando_houverem_clientes()
+        public void Api_Get_Deve_retornar_a_lista_de_entidades_registradas_quando_houver_entidades_persistidas()
         {
-            var entidades = ObterExemploEntidades();
-            PersistirEntidades(entidades);
+            var entidadesPersistidas = ObterExemploEntidades();
+            PersistirEntidades(entidadesPersistidas);
 
             var resultado = _controller.Get() as OkObjectResult;
-            var clientes = resultado.Value as IEnumerable<Cliente>;
+            var entidades = resultado.Value as IEnumerable<TEntidade>;
 
-            clientes.Should().BeEquivalentTo(entidades);
+            entidades.Should().BeEquivalentTo(entidadesPersistidas);
         }
 
         [Fact]
-        public void Clientes_Get_Id_Deve_retornar_NotFound_quando_o_cliente_não_existir()
+        public void Api_Get_Id_Deve_retornar_NotFound_quando_a_entidade_não_existir()
         {
             var idAusenteNoBanco = 404;
 
@@ -55,16 +55,16 @@ namespace LojaInformatica.API.Testes.Controllers
         }
 
         [Fact]
-        public void Clientes_Get_Id_Deve_retornar_o_cliente_específico_se_existir()
+        public void Api_Get_Id_Deve_retornar_a_entidade_específica_se_a_mesma_existir()
         {
             var entidades = ObterExemploEntidades();
             PersistirEntidades(entidades);
-            var clienteDeExemplo = entidades.First();
+            var entidadeDeExemplo = entidades.First();
 
-            var resultado = _controller.Get(clienteDeExemplo.Id) as OkObjectResult;
-            var cliente = resultado.Value as Cliente;
+            var resultado = _controller.Get(entidadeDeExemplo.Id) as OkObjectResult;
+            var entidade = resultado.Value as TEntidade;
 
-            cliente.ShouldBeEquivalentTo(clienteDeExemplo);
+            entidade.ShouldBeEquivalentTo(entidadeDeExemplo);
         }
     }
 }

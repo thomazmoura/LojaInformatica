@@ -20,7 +20,6 @@ namespace LojaInformatica.API.Testes.Controllers
             return new ClienteController(_ambienteDeTeste.Repositorio);
         }
 
-        private readonly IEnumerable<Cliente> _clientes;
         protected override IEnumerable<Cliente> ObterExemploEntidades()
         {
             return new[]{

@@ -5,12 +5,17 @@ using Microsoft.AspNetCore.Mvc;
 namespace LojaInformatica.API.Controllers
 {
     [Route("api/clientes")]
-    public class ClienteController : Controller
+    public class ClienteController : Controller, IEntidadeApi<Cliente>
     {
         private readonly IRepositorio _repositorio;
         public ClienteController(IRepositorio repositorio)
         {
             _repositorio = repositorio;
+        }
+
+        public IActionResult Get()
+        {
+            return Get(null);
         }
 
         [HttpGet]

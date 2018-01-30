@@ -39,10 +39,14 @@ namespace LojaInformatica.API
                 {
                     options.UseNpgsql(connectionString);
                 });
-                
+
             services.UseLojaInformaticaDependencies();
 
-            services.AddMvc(options => options.Filters.Add<UnitOfWorkFilter>());
+            services.AddMvc(options =>
+            {
+                options.Filters.Add<UnitOfWorkFilter>();
+                options.Filters.Add<IQueryableIteratorFilter>();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -6,6 +6,7 @@ using LojaInformatica.API.Controllers;
 using LojaInformatica.API.Entidades;
 using LojaInformatica.API.Testes.Configuracao;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace LojaInformatica.API.Testes.Controllers
@@ -19,6 +20,16 @@ namespace LojaInformatica.API.Testes.Controllers
         protected abstract TEntidade ObterExemploEntidadeValidaParaInsercao();
         protected abstract TEntidade ObterExemploEntidadeInvalidaParaAtualizacao();
         protected abstract TEntidade ObterExemploEntidadeValidaParaAtualizacao();
+
+        protected readonly AmbienteDeTeste _ambienteDeTeste;
+        protected IEntidadeApi<TEntidade> _controller;
+        protected ApiControllerTests()
+        {
+            _chaveDoBanco = Guid.NewGuid().ToString();
+            _ambienteDeTeste = AmbienteDeTeste.NovoAmbiente(_chaveDoBanco);
+            _controller = ObterApiController();
+        }
+
         protected virtual bool CompararEntidades(IEnumerable<TEntidade> entidadesObtidas, IEnumerable<TEntidade> entidadesEsperadas)
         {
             if (entidadesObtidas.Count() != entidadesEsperadas.Count())
@@ -40,14 +51,24 @@ namespace LojaInformatica.API.Testes.Controllers
         {
             PersistirEntidades(new[] { entidade });
         }
-
-        protected readonly AmbienteDeTeste _ambienteDeTeste;
-        protected IEntidadeApi<TEntidade> _controller;
-        protected ApiControllerTests()
+        protected virtual IEnumerable<TEntidade> ConsultarEntidadesPersistidas()
         {
-            _chaveDoBanco = Guid.NewGuid().ToString();
-            _ambienteDeTeste = AmbienteDeTeste.NovoAmbiente(_chaveDoBanco);
-            _controller = ObterApiController();
+            var ambienteDeTeste = AmbienteDeTeste.NovoAmbiente(_chaveDoBanco);
+            return ambienteDeTeste.Contexto.Set<TEntidade>().ToList();
+        }
+        protected virtual TEntidade ConsultarEntidadePersistida()
+        {
+            return ConsultarEntidadesPersistidas().Single();
+        }
+        protected virtual TEntidade ConsultarEntidadeLocal(int id)
+        {
+            return _ambienteDeTeste.Contexto.Find<TEntidade>(id);
+        }
+        protected virtual EntityState ConsultarEstadoDeEntidadeLocal(int id)
+        {
+            var entidade = _ambienteDeTeste.Contexto.Find<TEntidade>(id);
+            var entry = _ambienteDeTeste.Contexto.Entry(entidade);
+            return entry.State;
         }
 
         [Fact]
@@ -115,7 +136,18 @@ namespace LojaInformatica.API.Testes.Controllers
             var id = resultado.RouteValues["Id"].As<int>();
 
             entidade.Should().NotBeNull();
-            id.Should().Be(entidade.Id);
+            entidade.EquivaleA(entidadeDeExemplo).Should().BeTrue();
+        }
+
+        [Fact]
+        public void Api_Post_Deve_inserir_a_entidade_quando_a_mesma_estiver_válida_para_inserção()
+        {
+            var entidadeASerInserida = ObterExemploEntidadeValidaParaInsercao();
+
+            var resultado = _controller.Post(entidadeASerInserida) as CreatedAtRouteResult;
+            var entidadePersistida = ConsultarEntidadeLocal(entidadeASerInserida.Id);
+
+            entidadePersistida.EquivaleA(entidadeASerInserida).Should().BeTrue();
         }
 
         [Fact]
@@ -151,6 +183,21 @@ namespace LojaInformatica.API.Testes.Controllers
         }
 
         [Fact]
+        public void Api_Put_Deve_atualizar_a_entidade_quando_a_entidade_estiver_válida_para_atualização()
+        {
+            var entidadesDeExemplo = ObterExemploEntidades().Take(2);
+            var entidadeOriginal = entidadesDeExemplo.First();
+            var entidadeRevisada = entidadesDeExemplo.Last();
+            PersistirEntidade(entidadeOriginal);
+            entidadeRevisada.Id = entidadeOriginal.Id;
+
+            var resultado = _controller.Put(entidadeRevisada);
+            var entidadePersistidaAposAtualizacao = ConsultarEntidadeLocal(entidadeRevisada.Id);
+
+            entidadePersistidaAposAtualizacao.EquivaleA(entidadeRevisada).Should().BeTrue();
+        }
+
+        [Fact]
         public void Api_Delete_Deve_retornar_NotFound_quando_a_entidade_não_existir()
         {
             var idAusenteNoBanco = 400;
@@ -161,7 +208,7 @@ namespace LojaInformatica.API.Testes.Controllers
         }
 
         [Fact]
-        public void Api_Delete_Deve_retornar_NoContent_quando_a_entidade_for_excluída_com_sucesso()
+        public void Api_Delete_Deve_retornar_NoContent_quando_a_entidade_existir()
         {
             var entidadeDeExemplo = ObterExemploEntidadeValidaParaInsercao();
             PersistirEntidade(entidadeDeExemplo);
@@ -170,6 +217,19 @@ namespace LojaInformatica.API.Testes.Controllers
             var resultado = _controller.Delete(idEntidade);
 
             resultado.Should().BeOfType<NoContentResult>();
+        }
+
+        [Fact]
+        public void Api_Delete_Deve_retornar_marcar_a_entidade_para_remoção_quando_a_entidade_existir()
+        {
+            var entidadeDeExemplo = ObterExemploEntidadeValidaParaInsercao();
+            PersistirEntidade(entidadeDeExemplo);
+            var idEntidade = entidadeDeExemplo.Id;
+
+            var resultado = _controller.Delete(idEntidade);
+            var estadoDaEntidadeASerRemovida = ConsultarEstadoDeEntidadeLocal(idEntidade);
+
+            estadoDaEntidadeASerRemovida.Should().Be(EntityState.Deleted);
         }
     }
 }

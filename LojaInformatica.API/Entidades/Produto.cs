@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace LojaInformatica.API.Entidades
 {
-    public class Produto : Entidade
+    public class Produto : Entidade<Produto>
     {
         public string Nome { get; set; }
         public string Descricao { get; set; }
@@ -19,5 +19,13 @@ namespace LojaInformatica.API.Entidades
         public override bool EstaValidoParaAtualizacao => base.EstaValidoParaAtualizacao
                 && Preco > 0
                 && !string.IsNullOrWhiteSpace(Nome);
+
+        public override bool EquivaleA(Produto outroProduto)
+        {
+            return base.EquivaleA(outroProduto)
+                && outroProduto.Nome == Nome
+                && outroProduto.Descricao == Descricao
+                && outroProduto.Preco == Preco;
+        }
     }
 }

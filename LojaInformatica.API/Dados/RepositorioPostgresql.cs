@@ -15,32 +15,35 @@ namespace LojaInformatica.API.Dados
         public IQueryable<Produto> Produtos => _context.Produtos;
 
         private readonly ContextoLojaInformatica _context;
-        public RepositorioPostgresql(ContextoLojaInformatica context){
+        public RepositorioPostgresql(ContextoLojaInformatica context)
+        {
             _context = context;
         }
 
-        public void Acrescentar<T>(T entidade) where T: Entidade
+        public void Acrescentar<T>(T entidade) where T : Entidade
         {
             _context.Set<T>().Add(entidade);
         }
 
-        public void Atualizar<T>(T entidade) where T: Entidade
+        public void Atualizar<T>(T entidade) where T : Entidade
         {
             _context.Set<T>().Attach(entidade);
             _context.Entry(entidade).State = EntityState.Modified;
         }
 
-        public void Remover<T>(T entidade) where T: Entidade
+        public void Remover<T>(T entidade) where T : Entidade
         {
+            _context.Set<T>().Attach(entidade);
             _context.Set<T>().Remove(entidade);
         }
 
-        public void Remover<T>(int id) where T: Entidade, new()
+        public void Remover<T>(int id) where T : Entidade, new()
         {
             var entidade = new T()
             {
                 Id = id
             };
+            _context.Set<T>().Attach(entidade);
             _context.Set<T>().Remove(entidade);
         }
     }

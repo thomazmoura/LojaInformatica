@@ -43,6 +43,9 @@ namespace LojaInformatica.API.Controllers
         [HttpPost()]
         public IActionResult Post([FromBody] Cliente cliente)
         {
+            if (!cliente.EstaValidoParaInsercao)
+                return BadRequest();
+
             _repositorio.Acrescentar(cliente);
             return CreatedAtRoute("ConsultarCliente", new
             {

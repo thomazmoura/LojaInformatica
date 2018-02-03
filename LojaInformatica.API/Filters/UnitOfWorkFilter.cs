@@ -13,10 +13,10 @@ namespace LojaInformatica.API.Filters
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            if(context.Exception == null)
+            if (context.Exception == null)
                 _unitOfWork.SalvarAlteracoes();
         }
 
-        public void OnActionExecuting(ActionExecutingContext context){}
+        public void OnActionExecuting(ActionExecutingContext context) { }
     }
 }

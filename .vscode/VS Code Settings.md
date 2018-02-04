@@ -4,9 +4,13 @@ Aqui constam algumas opções que você pode utilizar para personalizar a sua ex
 
 ## VS Code Icons
 
-Seguem alguns exemplos de personalizações de ícones que podem deixar a sua experiência de usuário mais agradável caso você utilize o plugin **VSCode-Icons**:
+A extensão do [**VS Code-Icons**](https://marketplace.visualstudio.com/items?itemName=robertohuertasm.vscode-icons) é útil pra quem quer melhorar a experiência de usuário no desenvolvimento ao acrescentar ícones mais intuitivos e que facilitam a navegabilidade no código.
 
-```
+Ele já possui por padrão ícones de arquivos e pastas bastante úteis, mas caso você queira personalizar mais os ícones de pastas ou arquivos, você pode verificar a [lista de ícones de arquivo](https://github.com/vscode-icons/vscode-icons/wiki/ListOfFiles) ou a [lista de ícones de pastas](https://github.com/vscode-icons/vscode-icons/wiki/ListOfFolders) para ver as opções disponíveis.
+
+Seguem alguns exemplos de personalizações de ícones de pastas que podem deixar a sua experiência de usuário mais agradável caso você utilize o plugin :
+
+```json
 "vsicons.associations.folders": [
     {
         "icon": "model",
@@ -67,6 +71,13 @@ Seguem alguns exemplos de personalizações de ícones que podem deixar a sua ex
         "icon": "src",
         "extensions": [
             "LojaInformatica.Api"
+        ],
+        "format": "svg"
+    },
+    {
+        "icon": "log",
+        "extensions": [
+            "ReleaseNotes"
         ],
         "format": "svg"
     }

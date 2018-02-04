@@ -8,7 +8,6 @@ namespace LojaInformatica.API.Entidades
         public string Descricao { get; set; }
         public decimal Preco { get; set; }
 
-        public virtual Imagem ImagemPrincipal { get; set; }
         public virtual ICollection<Imagem> Imagens { get; set; }
         public virtual ICollection<ItemDaCompra> ItemComprados { get; set; }
 
@@ -27,5 +26,16 @@ namespace LojaInformatica.API.Entidades
                 && outroProduto.Descricao == Descricao
                 && outroProduto.Preco == Preco;
         }
+    }
+
+    public class Imagem
+    {
+        public int Id { get; set; }
+        public string URL { get; set; }
+        public bool ImagemPrincipal { get; set; }
+
+        public int ProdutoId { get; set; }
+
+        public virtual Produto Produto { get; set; }
     }
 }

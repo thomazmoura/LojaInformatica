@@ -25,6 +25,11 @@ namespace LojaInformatica.API.Entidades
             return entidades.ToList();
         }
 
+        public static bool PossuiAlgumValor(this IQueryable<Entidade> entidades)
+        {
+            return entidades.Any();
+        }
+
         public static bool ConstaNoBanco(this IQueryable<Entidade> entidades, int id)
         {
             return entidades.Any(entidade => entidade.Id == id);

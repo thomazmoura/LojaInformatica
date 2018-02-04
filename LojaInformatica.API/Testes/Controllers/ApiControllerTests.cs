@@ -113,7 +113,7 @@ namespace LojaInformatica.API.Testes.Controllers
             var resultado = _controller.Get(entidadeDeExemplo.Id) as OkObjectResult;
             var entidade = resultado.Value as TEntidade;
 
-            entidade.ShouldBeEquivalentTo(entidadeDeExemplo);
+            entidade.EquivaleA(entidadeDeExemplo).Should().BeTrue();
         }
 
         [Fact]

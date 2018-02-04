@@ -12,7 +12,7 @@ namespace LojaInformatica.API.Dados
 
         public IQueryable<Compra> Compras => _context.Compras;
 
-        public IQueryable<Produto> Produtos => _context.Produtos;
+        public IQueryable<Produto> Produtos => _context.Produtos.Include(produto => produto.Imagens);
 
         private readonly ContextoLojaInformatica _context;
         public RepositorioPostgresql(ContextoLojaInformatica context)

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using LojaInformatica.API.Controllers;
 using LojaInformatica.API.Entidades;
+using Microsoft.AspNetCore.Mvc;
+using Xunit;
 
 namespace LojaInformatica.API.Testes.Controllers
 {
@@ -40,14 +42,32 @@ namespace LojaInformatica.API.Testes.Controllers
                     Id = 42,
                     Nome = "Monitor LA - 42'",
                     Descricao = "Monitor Life's Awesome - 42 Polegadas.",
-                    Preco = 3499.99m
+                    Preco = 3499.99m,
+                    Imagens = new []
+                    {
+                        new Imagem()
+                        {
+                            Id = 202,
+                            ImagemPrincipal = true,
+                            URL = "https://lojainformatica.com.null/imagens/produtos/monitor-la-42-1"
+                        }
+                    }
                 },
                 new Produto()
                 {
                     Id = 56,
                     Nome = "Monitor MultiPlasma - 56'",
                     Descricao = "Monitor MultiPlasma - 56 Polegadas. Qualidade Contestável.",
-                    Preco = 2499.99m
+                    Preco = 2499.99m,
+                    Imagens = new []
+                    {
+                        new Imagem()
+                        {
+                            Id = 503,
+                            ImagemPrincipal = true,
+                            URL = "https://lojainformatica.com.null/imagens/produtos/monitor-multiplasma-56-1"
+                        }
+                    }
                 }
             };
         }
@@ -59,7 +79,21 @@ namespace LojaInformatica.API.Testes.Controllers
                 Id = 1,
                 Nome = "Mouse Óptico Multiplasma",
                 Descricao = "Mouse Óptico Multiplasma. Garantia de 15 minutos.",
-                Preco = 2.49m
+                Preco = 2.49m,
+                Imagens = new[]
+                {
+                    new Imagem()
+                    {
+                        Id = 0,
+                        URL = "https://lojainformatica.com.null/imagens/produtos/mouse-multiplasma-1"
+                    },
+                    new Imagem()
+                    {
+                        Id = 0,
+                        ImagemPrincipal = true,
+                        URL = "https://lojainformatica.com.null/imagens/produtos/mouse-multiplasma-2"
+                    }
+                }
             };
         }
 
@@ -70,7 +104,21 @@ namespace LojaInformatica.API.Testes.Controllers
                 Id = 0,
                 Nome = "Mouse Óptico Multiplasma",
                 Descricao = "Mouse Óptico Multiplasma. Garantia de 15 minutos.",
-                Preco = 3.49m
+                Preco = 3.49m,
+                Imagens = new[]
+                {
+                    new Imagem()
+                    {
+                        Id = 0,
+                        ImagemPrincipal = true,
+                        URL = "https://lojainformatica.com.null/imagens/produtos/mouse-multiplasma-1"
+                    },
+                    new Imagem()
+                    {
+                        Id = 0,
+                        URL = "https://lojainformatica.com.null/imagens/produtos/mouse-multiplasma-2"
+                    }
+                }
             };
         }
     }

@@ -38,11 +38,30 @@ namespace LojaInformatica.API.Testes.Controllers
             };
         }
 
-        protected override void PersistirEntidades(IEnumerable<Cliente> clientes)
+        protected override Cliente ObterExemploEntidadeInvalidaParaInsercao() => new Cliente()
         {
-            _ambienteDeTeste.Contexto.Clientes.AddRange(clientes);
-            _ambienteDeTeste.Contexto.SaveChanges();
-        }
+            Nome = null,
+            Email = null,
+            Id = 400
+        };
+        protected override Cliente ObterExemploEntidadeValidaParaInsercao() => new Cliente()
+        {
+            Nome = "Teste",
+            Email = "teste@email.com",
+            Id = 0
+        };
+        protected override Cliente ObterExemploEntidadeInvalidaParaAtualizacao() => new Cliente()
+        {
+            Nome = null,
+            Email = null,
+            Id = 0
+        };
+        protected override Cliente ObterExemploEntidadeValidaParaAtualizacao() => new Cliente()
+        {
+            Nome = "Teste",
+            Email = "teste@email.com",
+            Id = 204
+        };
 
         [Fact]
         public void Clientes_Get_Com_nome_Deve_retornar_a_lista_de_clientes_filtrada_por_nome()
@@ -56,7 +75,7 @@ namespace LojaInformatica.API.Testes.Controllers
             var resultado = _clienteController.Get(filtroDeNome) as OkObjectResult;
             var clientes = resultado.Value as IEnumerable<Cliente>;
 
-            clientes.Should().BeEquivalentTo(clientesFiltrados);
+            CompararEntidades(clientes, clientesFiltrados).Should().BeTrue();
         }
     }
 }

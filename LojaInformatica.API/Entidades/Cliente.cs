@@ -3,16 +3,29 @@ using System.Linq;
 
 namespace LojaInformatica.API.Entidades
 {
-    public class Cliente: Entidade
+    public class Cliente : Entidade<Cliente>
     {
         public string Nome { get; set; }
         public string Email { get; set; }
         public Guid ChaveDeAcesso { get; set; }
 
-        public bool EstaValidoParaAtualizacao =>  Id != 0 && !string.IsNullOrWhiteSpace(Nome);
+        public override bool EstaValidoParaInsercao => base.EstaValidoParaInsercao
+                && !string.IsNullOrWhiteSpace(Nome)
+                && !string.IsNullOrWhiteSpace(Email);
+
+        public override bool EstaValidoParaAtualizacao => base.EstaValidoParaAtualizacao
+                && !string.IsNullOrWhiteSpace(Nome)
+                && !string.IsNullOrWhiteSpace(Email);
+
+        public override bool EquivaleA(Cliente outroCliente)
+        {
+            return base.EquivaleA(outroCliente)
+                && Nome == outroCliente.Nome
+                && Email == outroCliente.Email;
+        }
     }
 
-    public static class ClienteExtensions 
+    public static class ClienteExtensions
     {
         public static IQueryable<Cliente> PorNome(this IQueryable<Cliente> clientes, string nome)
         {

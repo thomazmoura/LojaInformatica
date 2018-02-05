@@ -10,10 +10,12 @@ namespace LojaInformatica.API.Testes.Configuracao
         public IUnitOfWork UnitOfWork { get; set; }
         public IRepositorio Repositorio { get; set; }
 
-        public static AmbienteDeTeste NovoAmbiente()
+        public static AmbienteDeTeste NovoAmbiente(string chaveDoBanco = null)
         {
+            chaveDoBanco = chaveDoBanco ?? Guid.NewGuid().ToString();
             var options = new DbContextOptionsBuilder<ContextoLojaInformatica>()
-                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .UseInMemoryDatabase(chaveDoBanco)
+                .EnableSensitiveDataLogging()
                 .Options;
             var contexto = new ContextoLojaInformatica(options);
 

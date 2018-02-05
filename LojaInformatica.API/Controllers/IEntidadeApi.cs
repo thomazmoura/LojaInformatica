@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LojaInformatica.API.Controllers
 {
-    public interface IEntidadeApi<TEntidade> where TEntidade : Entidade
+    public interface IEntidadeApi<TEntidade> where TEntidade : Entidade<TEntidade>
     {
         IActionResult Get();
         IActionResult Get(int id);

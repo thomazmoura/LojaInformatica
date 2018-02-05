@@ -6,6 +6,16 @@ namespace LojaInformatica.API.Entidades
     public abstract class Entidade
     {
         public int Id { get; set; }
+        public virtual bool EstaValidoParaInsercao => Id == 0;
+        public virtual bool EstaValidoParaAtualizacao => Id != 0;
+    }
+
+    public abstract class Entidade<TEntidade> : Entidade where TEntidade : Entidade
+    {
+        public virtual bool EquivaleA(TEntidade outraEntidade)
+        {
+            return Id == outraEntidade.Id;
+        }
     }
 
     public static class EntidadeExtensions
@@ -13,6 +23,11 @@ namespace LojaInformatica.API.Entidades
         public static IEnumerable<Entidade> EmMemoria(this IQueryable<Entidade> entidades)
         {
             return entidades.ToList();
+        }
+
+        public static bool PossuiAlgumValor(this IQueryable<Entidade> entidades)
+        {
+            return entidades.Any();
         }
 
         public static bool ConstaNoBanco(this IQueryable<Entidade> entidades, int id)

@@ -7,9 +7,7 @@ namespace LojaInformatica.API.Dados.Configuracao
     {
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Produto> builder)
         {
-            builder.HasMany(produto => produto.Imagens)
-                .WithOne(imagem => imagem.Produto)
-                .HasForeignKey(imagem => imagem.ProdutoId);
+            builder.HasMany(produto => produto.Imagens);
         }
     }
 }

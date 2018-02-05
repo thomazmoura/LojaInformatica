@@ -27,13 +27,12 @@ namespace LojaInformatica.API.Dados
 
         public void Atualizar<T>(T entidade) where T : Entidade
         {
-            _context.Set<T>().Attach(entidade);
+            _context.Set<T>().Update(entidade);
             _context.Entry(entidade).State = EntityState.Modified;
         }
 
         public void Remover<T>(T entidade) where T : Entidade
         {
-            _context.Set<T>().Attach(entidade);
             _context.Set<T>().Remove(entidade);
         }
 

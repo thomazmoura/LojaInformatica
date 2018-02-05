@@ -12,10 +12,10 @@ namespace LojaInformatica.API.Entidades
         public virtual ICollection<Imagem> Imagens { get; set; }
         public virtual ICollection<ItemDaCompra> ItemComprados { get; set; }
 
-        public override bool EstaValidoParaInsercao => base.EstaValidoParaInsercao
+        internal override bool EstaValidoParaInsercao => base.EstaValidoParaInsercao
                  && PossuiTodosOsCamposObrigatorios;
 
-        public override bool EstaValidoParaAtualizacao => base.EstaValidoParaAtualizacao
+        internal override bool EstaValidoParaAtualizacao => base.EstaValidoParaAtualizacao
                 && PossuiTodosOsCamposObrigatorios;
 
         public override bool EquivaleA(Produto outroProduto)
@@ -31,9 +31,6 @@ namespace LojaInformatica.API.Entidades
                  && !string.IsNullOrWhiteSpace(Nome)
                  && !string.IsNullOrWhiteSpace(Descricao)
                  && Imagens != null && Imagens.Any();
-
-        public Imagem ImagemPrincipal => Imagens
-            .FirstOrDefault(imagem => imagem.ImagemPrincipal);
     }
 
     public class Imagem : Entidade
@@ -42,8 +39,6 @@ namespace LojaInformatica.API.Entidades
         public bool ImagemPrincipal { get; set; }
 
         public int ProdutoId { get; set; }
-
-        public virtual Produto Produto { get; set; }
     }
 
     public static class ImagemExtensions

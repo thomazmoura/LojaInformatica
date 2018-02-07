@@ -9,8 +9,11 @@ namespace LojaInformatica.API.Entidades
         public string Descricao { get; set; }
         public decimal Preco { get; set; }
 
+        public int? CategoriaId { get; set; }
+
         public virtual ICollection<Imagem> Imagens { get; set; }
         public virtual ICollection<ItemDaCompra> ItemComprados { get; set; }
+        public virtual Categoria Categoria { get; set; }
 
         internal override bool EstaValidoParaInsercao => base.EstaValidoParaInsercao
                  && PossuiTodosOsCamposObrigatorios;

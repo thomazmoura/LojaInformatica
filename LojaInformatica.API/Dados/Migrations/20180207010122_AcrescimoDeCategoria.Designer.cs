@@ -11,9 +11,10 @@ using System;
 namespace LojaInformatica.API.Dados.Migrations
 {
     [DbContext(typeof(ContextoLojaInformatica))]
-    partial class LojaInformaticaContextModelSnapshot : ModelSnapshot
+    [Migration("20180207010122_AcrescimoDeCategoria")]
+    partial class AcrescimoDeCategoria
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using FluentAssertions;
 using LojaInformatica.API.Controllers;
 using LojaInformatica.API.Entidades;
 using Microsoft.AspNetCore.Mvc;
@@ -120,6 +122,19 @@ namespace LojaInformatica.API.Testes.Controllers
                     }
                 }
             };
+        }
+
+        [Fact]
+        public void Produtos_Get_Deve_possuir_a_informação_de_produtos_incluindo_imagens_dos_mesmos()
+        {
+            var exemplosDeProdutos = ObterExemploEntidades();
+            PersistirEntidades(exemplosDeProdutos);
+
+            var resultado = _controller.Get() as OkObjectResult;
+            var produtos = resultado.Value as IEnumerable<Produto>;
+            var imagens = produtos.Select(produto => produto.Imagens);
+
+            imagens.Should().NotBeEmpty();
         }
     }
 }

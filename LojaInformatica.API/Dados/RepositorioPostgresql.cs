@@ -14,6 +14,9 @@ namespace LojaInformatica.API.Dados
 
         public IQueryable<Produto> Produtos => _context.Produtos.Include(produto => produto.Imagens);
 
+        public IQueryable<Categoria> Categorias => _context.Categorias;
+
+
         private readonly ContextoLojaInformatica _context;
         public RepositorioPostgresql(ContextoLojaInformatica context)
         {

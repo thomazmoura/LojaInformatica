@@ -4,12 +4,15 @@ using System.Linq;
 
 namespace LojaInformatica.API.Entidades
 {
-    public class Compra: Entidade
+    public class Compra : Entidade
     {
         public DateTime DataDaCompra { get; set; }
         public decimal ValorTotalDaCompra => ItensDaCompra.Sum(item => item.PrecoUnitario * item.Quantidade);
 
         public virtual ICollection<ItemDaCompra> ItensDaCompra { get; set; }
+
+        internal override bool PossuiTodosOsCamposObrigatorios => DataDaCompra != new DateTime()
+            && ItensDaCompra.Any();
     }
 
     public class ItemDaCompra

@@ -6,8 +6,9 @@ namespace LojaInformatica.API.Entidades
     public abstract class Entidade
     {
         public int Id { get; set; }
-        internal virtual bool EstaValidoParaInsercao => Id == 0;
-        internal virtual bool EstaValidoParaAtualizacao => Id != 0;
+        internal virtual bool EstaValidoParaInsercao => Id == 0 && PossuiTodosOsCamposObrigatorios;
+        internal virtual bool EstaValidoParaAtualizacao => Id != 0 && PossuiTodosOsCamposObrigatorios;
+        internal abstract bool PossuiTodosOsCamposObrigatorios { get; }
     }
 
     public abstract class Entidade<TEntidade> : Entidade where TEntidade : Entidade

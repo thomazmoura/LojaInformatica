@@ -9,12 +9,7 @@ namespace LojaInformatica.API.Entidades
         public string Email { get; set; }
         public Guid ChaveDeAcesso { get; set; }
 
-        internal override bool EstaValidoParaInsercao => base.EstaValidoParaInsercao
-                && !string.IsNullOrWhiteSpace(Nome)
-                && !string.IsNullOrWhiteSpace(Email);
-
-        internal override bool EstaValidoParaAtualizacao => base.EstaValidoParaAtualizacao
-                && !string.IsNullOrWhiteSpace(Nome)
+        internal override bool PossuiTodosOsCamposObrigatorios => !string.IsNullOrWhiteSpace(Nome)
                 && !string.IsNullOrWhiteSpace(Email);
 
         public override bool EquivaleA(Cliente outroCliente)

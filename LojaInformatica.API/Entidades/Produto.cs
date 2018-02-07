@@ -15,12 +15,6 @@ namespace LojaInformatica.API.Entidades
         public virtual ICollection<ItemDaCompra> ItemComprados { get; set; }
         public virtual Categoria Categoria { get; set; }
 
-        internal override bool EstaValidoParaInsercao => base.EstaValidoParaInsercao
-                 && PossuiTodosOsCamposObrigatorios;
-
-        internal override bool EstaValidoParaAtualizacao => base.EstaValidoParaAtualizacao
-                && PossuiTodosOsCamposObrigatorios;
-
         public override bool EquivaleA(Produto outroProduto)
         {
             return base.EquivaleA(outroProduto)
@@ -30,7 +24,7 @@ namespace LojaInformatica.API.Entidades
                 && Imagens.EquivalemA(outroProduto.Imagens);
         }
 
-        private bool PossuiTodosOsCamposObrigatorios => Preco > 0
+        internal override bool PossuiTodosOsCamposObrigatorios => Preco > 0
                  && !string.IsNullOrWhiteSpace(Nome)
                  && !string.IsNullOrWhiteSpace(Descricao)
                  && Imagens != null && Imagens.Any();
@@ -42,6 +36,8 @@ namespace LojaInformatica.API.Entidades
         public bool ImagemPrincipal { get; set; }
 
         public int ProdutoId { get; set; }
+
+        internal override bool PossuiTodosOsCamposObrigatorios => !string.IsNullOrWhiteSpace(URL);
     }
 
     public static class ImagemExtensions

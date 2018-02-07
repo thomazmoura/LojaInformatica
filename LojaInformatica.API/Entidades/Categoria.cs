@@ -7,5 +7,13 @@ namespace LojaInformatica.API.Entidades
         public string Nome { get; set; }
 
         public ICollection<Produto> Produtos { get; set; }
+
+        internal override bool PossuiTodosOsCamposObrigatorios => !string.IsNullOrWhiteSpace(Nome);
+
+        public override bool EquivaleA(Categoria outraEntidade)
+        {
+            return base.EquivaleA(outraEntidade) &&
+                Nome == outraEntidade.Nome;
+        }
     }
 }

@@ -125,7 +125,7 @@ namespace LojaInformatica.API.Testes.Controllers
         }
 
         [Fact]
-        public void Produtos_Get_Deve_possuir_a_informação_de_produtos_incluindo_imagens_dos_mesmos()
+        public void Get_RetornaProdutoComImagens_QuandoOProdutoPossuiImagens()
         {
             var exemplosDeProdutos = ObterExemploEntidades();
             PersistirEntidades(exemplosDeProdutos);

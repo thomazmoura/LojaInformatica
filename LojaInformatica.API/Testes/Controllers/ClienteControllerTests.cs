@@ -64,7 +64,7 @@ namespace LojaInformatica.API.Testes.Controllers
         };
 
         [Fact]
-        public void Clientes_Get_Com_nome_Deve_retornar_a_lista_de_clientes_filtrada_por_nome()
+        public void GetComNome_RetornaClientesFiltradosPorNome_QuandoExistiremClientesComONome()
         {
             var filtroDeNome = "beltrano";
             var entidades = ObterExemploEntidades();
@@ -76,6 +76,22 @@ namespace LojaInformatica.API.Testes.Controllers
             var clientes = resultado.Value as IEnumerable<Cliente>;
 
             CompararEntidades(clientes, clientesFiltrados).Should().BeTrue();
+        }
+
+        [Fact]
+        public void GetComNome_RetornaListaVazia_QuandoNãoExistiremClientesComONome()
+        {
+            var filtroDeNome = "inexistente";
+            var entidades = ObterExemploEntidades();
+            PersistirEntidades(entidades);
+            var clientesFiltrados = entidades.AsQueryable()
+                .PorNome(filtroDeNome);
+
+            var resultado = _clienteController.Get(filtroDeNome) as OkObjectResult;
+            var clientes = resultado.Value as IEnumerable<Cliente>;
+
+            clientes.Should().NotBeNull();
+            clientes.Should().BeEmpty();
         }
     }
 }

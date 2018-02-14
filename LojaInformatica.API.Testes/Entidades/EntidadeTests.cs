@@ -5,7 +5,7 @@ namespace LojaInformatica.API.Testes.Entidades
 {
     public abstract class EntidadeTests<TEntidade> where TEntidade : Entidade<TEntidade>, new()
     {
-        public void Entidade_EquivaleA_Deve_retornar_false_quando_os_ids_forem_diferentes()
+        public void EntidadeEquivaleA_RetornaFalse_QuandoIdsSãoDiferentes()
         {
             var entidadeComparada = new TEntidade()
             {

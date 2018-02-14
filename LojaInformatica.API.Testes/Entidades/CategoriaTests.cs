@@ -7,7 +7,7 @@ namespace LojaInformatica.API.Testes.Entidades
     public class CategoriaTests : EntidadeTests<Categoria>
     {
         [Fact]
-        public void Categoria_EquivaleA_Deve_retornar_false_para_categorias_com_nomes_diferentes()
+        public void CategoriaEquivaleA_RetornaFalse_QuandoCategoriasTêmNomesDiferentes()
         {
             var categoriaComparada = new Categoria()
             {
@@ -27,7 +27,7 @@ namespace LojaInformatica.API.Testes.Entidades
         }
 
         [Fact]
-        public void Categoria_EquivaleA_Deve_retornar_true_para_categorias_com_nomes_e_ids_iguais()
+        public void CategoriaEquivaleA_RetornaTrue_QuandoCategoriasTêmNomeEIdIguais()
         {
             var categoriaComparada = new Categoria()
             {

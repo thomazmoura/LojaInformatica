@@ -15,6 +15,11 @@ namespace LojaInformatica.API.Entidades
         public virtual ICollection<ItemDaCompra> ItemComprados { get; set; }
         public virtual Categoria Categoria { get; set; }
 
+        public Produto()
+        {
+            Imagens = new List<Imagem>();
+        }
+
         public override bool EquivaleA(Produto outroProduto)
         {
             return base.EquivaleA(outroProduto)
@@ -28,6 +33,14 @@ namespace LojaInformatica.API.Entidades
                  && !string.IsNullOrWhiteSpace(Nome)
                  && !string.IsNullOrWhiteSpace(Descricao)
                  && Imagens != null && Imagens.Any();
+    }
+
+    public static class ProdutoExtensions
+    {
+        public static IQueryable<Produto> PorCategoria(this IQueryable<Produto> produtos, int categoriaId)
+        {
+            return produtos.Where(produto => produto.CategoriaId == categoriaId);
+        }
     }
 
     public class Imagem : Entidade
@@ -44,6 +57,9 @@ namespace LojaInformatica.API.Entidades
     {
         public static bool EquivalemA(this IEnumerable<Imagem> imagens, IEnumerable<Imagem> outrasImagens)
         {
+            if (imagens.Count() == 0 && outrasImagens.Count() == 0)
+                return true;
+
             var idsDasImagens = imagens.Select(imagem => imagem.Id).Distinct();
             var idsDasOutrasImagens = outrasImagens.Select(imagem => imagem.Id).Distinct();
 

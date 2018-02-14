@@ -4,6 +4,11 @@ namespace LojaInformatica.API.Entidades
 {
     public class Categoria : Entidade<Categoria>
     {
+        public Categoria()
+        {
+            Produtos = new List<Produto>();
+        }
+
         public string Nome { get; set; }
 
         public ICollection<Produto> Produtos { get; set; }

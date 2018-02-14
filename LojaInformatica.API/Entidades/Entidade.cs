@@ -21,7 +21,7 @@ namespace LojaInformatica.API.Entidades
 
     public static class EntidadeExtensions
     {
-        public static IEnumerable<Entidade> EmMemoria(this IQueryable<Entidade> entidades)
+        public static IEnumerable<TEntidade> EmMemoria<TEntidade>(this IQueryable<TEntidade> entidades) where TEntidade : Entidade
         {
             return entidades.ToList();
         }
@@ -36,7 +36,7 @@ namespace LojaInformatica.API.Entidades
             return entidades.Any(entidade => entidade.Id == id);
         }
 
-        public static Entidade PorId(this IQueryable<Entidade> entidades, int id)
+        public static TEntidade PorId<TEntidade>(this IQueryable<TEntidade> entidades, int id) where TEntidade : Entidade
         {
             return entidades.SingleOrDefault(entidade => entidade.Id == id);
         }

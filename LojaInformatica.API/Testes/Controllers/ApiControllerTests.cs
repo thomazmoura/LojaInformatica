@@ -41,13 +41,13 @@ namespace LojaInformatica.API.Testes.Controllers
 
             return true;
         }
-        protected virtual void PersistirEntidades(IEnumerable<TEntidade> entidades)
+        protected virtual void PersistirEntidades(IEnumerable<Entidade> entidades)
         {
             var ambienteDeTeste = AmbienteDeTeste.NovoAmbiente(_chaveDoBanco);
             ambienteDeTeste.Contexto.AddRange(entidades);
             ambienteDeTeste.Contexto.SaveChanges();
         }
-        protected virtual void PersistirEntidade(TEntidade entidade)
+        protected virtual void PersistirEntidade(Entidade entidade)
         {
             PersistirEntidades(new[] { entidade });
         }

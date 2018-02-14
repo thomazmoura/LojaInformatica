@@ -13,10 +13,19 @@ namespace LojaInformatica.API.Controllers
             _repositorio = repositorio;
         }
 
-        [HttpGet]
         public IActionResult Get()
         {
+            return GetComFiltros();
+        }
+
+        [HttpGet]
+        public IActionResult GetComFiltros(int? categoriaId = null)
+        {
             var produtos = _repositorio.Produtos;
+
+            if (categoriaId.HasValue)
+                produtos = produtos.PorCategoria(categoriaId.Value);
+
             return Ok(produtos);
         }
 

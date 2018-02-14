@@ -31,15 +31,6 @@ namespace LojaInformatica.API.Controllers
             return Ok(categoria);
         }
 
-        [HttpGet("{id}/produtos")]
-        public IActionResult GetProdutos(int id)
-        {
-            var produtosDaCategoria = _repositorio.Produtos
-                .PorCategoria(id);
-
-            return Ok(produtosDaCategoria);
-        }
-
         [HttpPost]
         public IActionResult Post([FromBody] Categoria entidade)
         {

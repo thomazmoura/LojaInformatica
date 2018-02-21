@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LojaInformatica.API\LojaInformatica.API.csproj" />
+    <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.0" />
   </ItemGroup>
 
 </Project>

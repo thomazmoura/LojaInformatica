@@ -1,0 +1,25 @@
+{
+    "vsicons.associations.folders": [
+        {
+            "icon": "src",
+            "extensions": [
+                "LojaInformatica.API"
+            ],
+            "format": "svg"
+        },
+        {
+            "icon": "test",
+            "extensions": [
+                "LojaInformatica.API.Testes"
+            ],
+            "format": "svg"
+        },
+        {
+            "icon": "www",
+            "extensions": [
+                "LojaInformatica.FrontEnd"
+            ],
+            "format": "svg"
+        }
+    ]
+}

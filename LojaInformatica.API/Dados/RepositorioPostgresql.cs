@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LojaInformatica.API.Dados
 {
-    public class RepositorioPostgresql : IRepositorio
+    public class RepositorioMySql : IRepositorio
     {
         public IQueryable<Cliente> Clientes => _context.Clientes;
 
@@ -18,7 +18,7 @@ namespace LojaInformatica.API.Dados
 
 
         private readonly ContextoLojaInformatica _context;
-        public RepositorioPostgresql(ContextoLojaInformatica context)
+        public RepositorioMySql(ContextoLojaInformatica context)
         {
             _context = context;
         }

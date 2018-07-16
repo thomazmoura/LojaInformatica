@@ -286,5 +286,8 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 
-#VS Code files
+# VS Code files
 .vscode/
+
+# Production Settings
+appSettings.*.json

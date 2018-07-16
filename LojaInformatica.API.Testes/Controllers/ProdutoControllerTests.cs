@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using FluentAssertions;
 using LojaInformatica.API.Controllers;
 using LojaInformatica.API.Entidades;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +10,7 @@ namespace LojaInformatica.API.Testes.Controllers
 {
     public class ProdutoControllerTests : ApiControllerTests<Produto>
     {
+        private ProdutoController _produtoController => _controller as ProdutoController;
         protected override IEntidadeApi<Produto> ObterApiController()
         {
             return new ProdutoController(_ambienteDeTeste.Repositorio);
@@ -120,6 +123,40 @@ namespace LojaInformatica.API.Testes.Controllers
                     }
                 }
             };
+        }
+
+        [Fact]
+        public void Get_RetornaProdutoComImagens_QuandoOProdutoPossuiImagens()
+        {
+            var exemplosDeProdutos = ObterExemploEntidades();
+            PersistirEntidades(exemplosDeProdutos);
+
+            var resultado = _controller.Get() as OkObjectResult;
+            var produtos = resultado.Value as IEnumerable<Produto>;
+            var imagens = produtos.Select(produto => produto.Imagens);
+
+            imagens.Should().NotBeEmpty();
+        }
+
+
+        [Fact]
+        public void GetComCategoriaId_RetornaProdutosDaCategoria_QuandoACategoriaPossuiProdutos()
+        {
+            var produtosSemCategoriaQueNaoDevemSerRetornados = ObterExemploEntidades();
+            PersistirEntidades(produtosSemCategoriaQueNaoDevemSerRetornados);
+            var categoria = new Categoria()
+            {
+                Nome = "Periféricos"
+            };
+            var produtoDaCategoria = ObterExemploEntidadeValidaParaInsercao();
+            categoria.Produtos.Add(produtoDaCategoria);
+            PersistirEntidade(categoria);
+
+            var resultado = _produtoController.GetComFiltros(categoria.Id) as OkObjectResult;
+            var produtos = resultado.Value as IEnumerable<Produto>;
+            var produtoRetornado = produtos.Single();
+
+            produtoRetornado.EquivaleA(produtoDaCategoria).Should().BeTrue();
         }
     }
 }

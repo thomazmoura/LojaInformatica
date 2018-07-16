@@ -83,3 +83,23 @@ Seguem alguns exemplos de personalizações de ícones de pastas que podem deixa
     }
 ]
 ```
+
+## Snippets
+
+Outro recurso interessante do VS Code é a criação de snippets. Para criar seu próprio snippet basta ir em *> Preferences: Open User Snippets*. Segue abaixo um exemplo de snippet que você pode criar para testes unitários:
+
+*Obs.: O próprio arquivo de criação de snippets já dá detalhes de como criar seus próprios snippets. Para inserir o snippet abaixo (depois de inserido no csharp.json) é só digitar __ut + tab__ em um arquivo C#.*
+
+```json
+"Unit Test": {
+    "prefix": "ut",
+    "body": [
+        "[Fact]",
+        "public void ${1:Método}_${2:ResultadoEsperado}_${3:SituaçãoSimulada}()",
+        "{",
+        "$0",
+        "}"
+    ],
+    "description": "Cria um teste unitário utilizando o XUnit."
+}
+```

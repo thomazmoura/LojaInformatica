@@ -41,13 +41,13 @@ namespace LojaInformatica.API.Testes.Controllers
 
             return true;
         }
-        protected virtual void PersistirEntidades(IEnumerable<TEntidade> clientes)
+        protected virtual void PersistirEntidades(IEnumerable<Entidade> entidades)
         {
             var ambienteDeTeste = AmbienteDeTeste.NovoAmbiente(_chaveDoBanco);
-            ambienteDeTeste.Contexto.Set<TEntidade>().AddRange(clientes);
+            ambienteDeTeste.Contexto.AddRange(entidades);
             ambienteDeTeste.Contexto.SaveChanges();
         }
-        protected virtual void PersistirEntidade(TEntidade entidade)
+        protected virtual void PersistirEntidade(Entidade entidade)
         {
             PersistirEntidades(new[] { entidade });
         }
@@ -72,7 +72,7 @@ namespace LojaInformatica.API.Testes.Controllers
         }
 
         [Fact]
-        public void Api_Get_Deve_retornar_uma_lista_vazia_quando_não_houver_dados_no_banco()
+        public void Get_RetornaListaVazia_QuandoNãoHáEntidadesNoBanco()
         {
             var resultado = _controller.Get() as OkObjectResult;
             var entidades = resultado.Value as IEnumerable<TEntidade>;
@@ -81,7 +81,7 @@ namespace LojaInformatica.API.Testes.Controllers
         }
 
         [Fact]
-        public void Api_Get_Deve_retornar_a_lista_de_entidades_registradas_quando_houver_entidades_persistidas()
+        public void Get_RetornaEntidadesRegistradas_QuandoHáEntidadesNoBanco()
         {
             var entidadesPersistidas = ObterExemploEntidades();
             PersistirEntidades(entidadesPersistidas);
@@ -94,7 +94,7 @@ namespace LojaInformatica.API.Testes.Controllers
         }
 
         [Fact]
-        public void Api_Get_Id_Deve_retornar_NotFound_quando_a_entidade_não_existir()
+        public void GetComId_RetornaNotFound_QuandoAEntidadeNãoExiste()
         {
             var idAusenteNoBanco = 404;
 
@@ -104,7 +104,7 @@ namespace LojaInformatica.API.Testes.Controllers
         }
 
         [Fact]
-        public void Api_Get_Id_Deve_retornar_a_entidade_específica_se_a_mesma_existir()
+        public void GetComId_RetornaEntidade_QuandoElaExiste()
         {
             var entidades = ObterExemploEntidades();
             PersistirEntidades(entidades);
@@ -117,7 +117,7 @@ namespace LojaInformatica.API.Testes.Controllers
         }
 
         [Fact]
-        public void Api_Post_Deve_retornar_BadRequest_quando_a_entidade_não_estiver_válida_para_inserção()
+        public void Post_RetornaBadRequest_QuandoAEntidadeNãoEstáVálidaParaInserção()
         {
             var entidadeDeExemplo = ObterExemploEntidadeInvalidaParaInsercao();
 
@@ -127,7 +127,7 @@ namespace LojaInformatica.API.Testes.Controllers
         }
 
         [Fact]
-        public void Api_Post_Deve_retornar_CreatedAtRoute_quando_a_entidade_estiver_válida_para_inserção()
+        public void Post_RetornaCreatedAtRoute_QuandoAEntidadeEstáVálidaParaInserção()
         {
             var entidadeDeExemplo = ObterExemploEntidadeValidaParaInsercao();
 
@@ -140,18 +140,18 @@ namespace LojaInformatica.API.Testes.Controllers
         }
 
         [Fact]
-        public void Api_Post_Deve_inserir_a_entidade_quando_a_mesma_estiver_válida_para_inserção()
+        public void Post_MarcaEntidadeParaInserção_QuandoElaEstáVálidaParaInserção()
         {
             var entidadeASerInserida = ObterExemploEntidadeValidaParaInsercao();
 
             var resultado = _controller.Post(entidadeASerInserida) as CreatedAtRouteResult;
-            var entidadePersistida = ConsultarEntidadeLocal(entidadeASerInserida.Id);
+            var estadoDaEntidadeAposInsercao = ConsultarEstadoDeEntidadeLocal(entidadeASerInserida.Id);
 
-            entidadePersistida.EquivaleA(entidadeASerInserida).Should().BeTrue();
+            estadoDaEntidadeAposInsercao.Should().Be(EntityState.Added);
         }
 
         [Fact]
-        public void Api_Put_Deve_retornar_BadRequest_quando_a_entidade_não_estiver_válida_para_atualização()
+        public void Put_RetornaBadRequest_QuandoAEntidadeNãoEstáVálidaParaAtualização()
         {
             var entidadeDeExemplo = ObterExemploEntidadeInvalidaParaAtualizacao();
 
@@ -161,7 +161,7 @@ namespace LojaInformatica.API.Testes.Controllers
         }
 
         [Fact]
-        public void Api_Put_Deve_retornar_NotFound_quando_a_id_solicitada_não_constar_no_banco()
+        public void Put_RetornaNotFound_QuandoAIdInformadaNãoConstaNoBanco()
         {
             var entidadeDeExemplo = ObterExemploEntidadeValidaParaAtualizacao();
             entidadeDeExemplo.Id = 400;
@@ -172,7 +172,7 @@ namespace LojaInformatica.API.Testes.Controllers
         }
 
         [Fact]
-        public void Api_Put_Deve_retornar_NoContentResult_quando_a_entidade_estiver_válida_para_atualização()
+        public void Put_RetornaNoContentResult_QuandoAEntidadeEstáVálidaParaAtualização()
         {
             var entidadeDeExemplo = ObterExemploEntidadeValidaParaAtualizacao();
             PersistirEntidade(entidadeDeExemplo);
@@ -183,7 +183,7 @@ namespace LojaInformatica.API.Testes.Controllers
         }
 
         [Fact]
-        public void Api_Put_Deve_atualizar_a_entidade_quando_a_entidade_estiver_válida_para_atualização()
+        public void Put_MarcaAEntidadeParaAtualização_QuandoElaEstáVálidaParaAtualização()
         {
             var entidadesDeExemplo = ObterExemploEntidades().Take(2);
             var entidadeOriginal = entidadesDeExemplo.First();
@@ -192,13 +192,13 @@ namespace LojaInformatica.API.Testes.Controllers
             entidadeRevisada.Id = entidadeOriginal.Id;
 
             var resultado = _controller.Put(entidadeRevisada);
-            var entidadePersistidaAposAtualizacao = ConsultarEntidadeLocal(entidadeRevisada.Id);
+            var estadoDaEntidadeAposAtualizacao = ConsultarEstadoDeEntidadeLocal(entidadeRevisada.Id);
 
-            entidadePersistidaAposAtualizacao.EquivaleA(entidadeRevisada).Should().BeTrue();
+            estadoDaEntidadeAposAtualizacao.Should().Be(EntityState.Modified);
         }
 
         [Fact]
-        public void Api_Delete_Deve_retornar_NotFound_quando_a_entidade_não_existir()
+        public void Delete_RetornaNotFound_QuandoAEntidadeNãoExiste()
         {
             var idAusenteNoBanco = 400;
 
@@ -208,7 +208,7 @@ namespace LojaInformatica.API.Testes.Controllers
         }
 
         [Fact]
-        public void Api_Delete_Deve_retornar_NoContent_quando_a_entidade_existir()
+        public void Delete_RetornaNoContent_QuandoAEntidadeExiste()
         {
             var entidadeDeExemplo = ObterExemploEntidadeValidaParaInsercao();
             PersistirEntidade(entidadeDeExemplo);
@@ -220,7 +220,7 @@ namespace LojaInformatica.API.Testes.Controllers
         }
 
         [Fact]
-        public void Api_Delete_Deve_retornar_marcar_a_entidade_para_remoção_quando_a_entidade_existir()
+        public void Delete_MarcaAEntidadeParaRemoção_QuandoElaExiste()
         {
             var entidadeDeExemplo = ObterExemploEntidadeValidaParaInsercao();
             PersistirEntidade(entidadeDeExemplo);

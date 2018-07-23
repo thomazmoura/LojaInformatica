@@ -23,7 +23,7 @@ namespace LojaInformatica.API.Testes.Configuracao
             {
                 Contexto = contexto,
                 UnitOfWork = new UnitOfWork(contexto),
-                Repositorio = new RepositorioPostgresql(contexto)
+                Repositorio = new RepositorioMySql(contexto)
             };
         }
     }

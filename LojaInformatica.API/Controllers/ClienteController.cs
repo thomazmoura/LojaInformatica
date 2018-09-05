@@ -1,5 +1,6 @@
 using LojaInformatica.API.Dados;
 using LojaInformatica.API.Entidades;
+using LojaInformatica.API.Objetos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LojaInformatica.API.Controllers
@@ -19,11 +20,14 @@ namespace LojaInformatica.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get(string nome = null)
+        public IActionResult Get(string nome = null, Ordenacao ordenacao = null, Paginacao paginacao = null)
         {
             var clientes = _repositorio.Clientes;
             if (!string.IsNullOrEmpty(nome))
                 clientes = clientes.PorNome(nome);
+
+            clientes.OrdernarPor(ordenacao)
+                .Paginar(paginacao);
 
             return Ok(clientes);
         }

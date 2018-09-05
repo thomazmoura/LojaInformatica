@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using LojaInformatica.API.Objetos;
 
 namespace LojaInformatica.API.Entidades
 {
@@ -39,6 +41,27 @@ namespace LojaInformatica.API.Entidades
         public static TEntidade PorId<TEntidade>(this IQueryable<TEntidade> entidades, int id) where TEntidade : Entidade
         {
             return entidades.SingleOrDefault(entidade => entidade.Id == id);
+        }
+
+        public static IOrderedQueryable<TEntidade> OrdernarPor<TEntidade, TKey>(this IQueryable<TEntidade> entidades, Func<TEntidade, TKey> ordernarPor, Ordenacao ordenacao) where TEntidade : Entidade
+        {
+            var ascendente = ordenacao != null ?
+                ordenacao.Ascendente :
+                true;
+
+            return ascendente ?
+                entidades.OrderBy(e => ordernarPor) :
+                entidades.OrderByDescending(e => ordernarPor);
+        }
+
+        public static IQueryable<TEntidade> Paginar<TEntidade>(this IOrderedQueryable<TEntidade> entidades, Paginacao paginacao) where TEntidade : Entidade
+        {
+            if (paginacao == null)
+                return entidades;
+
+            return entidades
+                .Skip(paginacao.ElementosParaPular)
+                .Take(paginacao.Tamanho);
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using FluentAssertions;
 using LojaInformatica.API.Controllers;
 using LojaInformatica.API.Entidades;
+using LojaInformatica.API.Objetos;
 using LojaInformatica.API.Testes.Configuracao;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
@@ -22,18 +23,21 @@ namespace LojaInformatica.API.Testes.Controllers
 
         protected override IEnumerable<Cliente> ObterExemploEntidades()
         {
-            return new[]{
-                new Cliente{
+            return new []
+            {
+                new Cliente
+                {
                     Id = 200,
-                    Nome = "Um Dois Três da Silva Quatro",
-                    Email = "1234@email.com",
-                    ChaveDeAcesso = new Guid("9690d1ba-f047-4974-a58b-9fe32e6a36d1")
+                        Nome = "Um Dois Três da Silva Quatro",
+                        Email = "1234@email.com",
+                        ChaveDeAcesso = new Guid("9690d1ba-f047-4974-a58b-9fe32e6a36d1")
                 },
-                new Cliente{
+                new Cliente
+                {
                     Id = 201,
-                    Nome = "Fulano Cicrano Beltrano",
-                    Email = "johndoe@email.com",
-                    ChaveDeAcesso = new Guid("572db7a9-5a1d-4bed-a52e-af67ac033787")
+                        Nome = "Fulano Cicrano Beltrano",
+                        Email = "johndoe@email.com",
+                        ChaveDeAcesso = new Guid("572db7a9-5a1d-4bed-a52e-af67ac033787")
                 }
             };
         }
@@ -92,6 +96,44 @@ namespace LojaInformatica.API.Testes.Controllers
 
             clientes.Should().NotBeNull();
             clientes.Should().BeEmpty();
+        }
+
+        [Fact]
+        public void GetComOrdenacao_RetornaListaOrdenada_QuandoAOrdenacaoPorNomeForInformada()
+        {
+            var ordenacaoPorNome = new Ordenacao()
+            {
+                NomeParametro = "nome",
+                Ascendente = true
+            };
+            var entidades = ObterExemploEntidades();
+            PersistirEntidades(entidades);
+            var clientesOrdenados = entidades
+                .OrderBy(cliente => cliente.Nome);
+
+            var resultado = _clienteController.Get(nome: null, ordenacao: ordenacaoPorNome) as OkObjectResult;
+            var clientes = resultado.Value as IEnumerable<Cliente>;
+
+            CompararEntidades(clientes, clientesOrdenados).Should().BeTrue();
+        }
+
+        [Fact]
+        public void GetComOrdenacao_RetornaListaOrdenada_QuandoAOrdenacaoPorEmailForInformada()
+        {
+            var ordenacaoPorEmail = new Ordenacao()
+            {
+                NomeParametro = "email",
+                Ascendente = true
+            };
+            var entidades = ObterExemploEntidades();
+            PersistirEntidades(entidades);
+            var clientesOrdenados = entidades
+                .OrderByDescending(cliente => cliente.Email);
+
+            var resultado = _clienteController.Get(nome: null, ordenacao: ordenacaoPorEmail) as OkObjectResult;
+            var clientes = resultado.Value as IEnumerable<Cliente>;
+
+            CompararEntidades(clientes, clientesOrdenados).Should().BeTrue();
         }
     }
 }

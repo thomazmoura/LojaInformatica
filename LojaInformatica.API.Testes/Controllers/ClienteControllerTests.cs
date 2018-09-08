@@ -70,11 +70,14 @@ namespace LojaInformatica.API.Testes.Controllers
         [Fact]
         public void GetComNome_RetornaClientesFiltradosPorNome_QuandoExistiremClientesComONome()
         {
-            var filtroDeNome = "beltrano";
+            var filtroDeNome = new FiltroDeCliente()
+            {
+                Nome = "beltrano"
+            };
             var entidades = ObterExemploEntidades();
             PersistirEntidades(entidades);
             var clientesFiltrados = entidades.AsQueryable()
-                .PorNome(filtroDeNome);
+                .PorNome(filtroDeNome.Nome);
 
             var resultado = _clienteController.Get(filtroDeNome) as OkObjectResult;
             var clientes = resultado.Value as IEnumerable<Cliente>;
@@ -85,11 +88,14 @@ namespace LojaInformatica.API.Testes.Controllers
         [Fact]
         public void GetComNome_RetornaListaVazia_QuandoNãoExistiremClientesComONome()
         {
-            var filtroDeNome = "inexistente";
+            var filtroDeNome = new FiltroDeCliente()
+            {
+                Nome = "inexistente"
+            };
             var entidades = ObterExemploEntidades();
             PersistirEntidades(entidades);
             var clientesFiltrados = entidades.AsQueryable()
-                .PorNome(filtroDeNome);
+                .PorNome(filtroDeNome.Nome);
 
             var resultado = _clienteController.Get(filtroDeNome) as OkObjectResult;
             var clientes = resultado.Value as IEnumerable<Cliente>;
@@ -101,7 +107,7 @@ namespace LojaInformatica.API.Testes.Controllers
         [Fact]
         public void GetComOrdenacao_RetornaListaOrdenada_QuandoAOrdenacaoPorNomeForInformada()
         {
-            var ordenacaoPorNome = new Ordenacao()
+            var ordenacaoPorNome = new FiltroDeCliente()
             {
                 NomeParametro = "nome",
                 Ascendente = true
@@ -111,7 +117,7 @@ namespace LojaInformatica.API.Testes.Controllers
             var clientesOrdenados = entidades
                 .OrderBy(cliente => cliente.Nome);
 
-            var resultado = _clienteController.Get(nome: null, ordenacao: ordenacaoPorNome) as OkObjectResult;
+            var resultado = _clienteController.Get(ordenacaoPorNome) as OkObjectResult;
             var clientes = resultado.Value as IEnumerable<Cliente>;
 
             CompararEntidades(clientes, clientesOrdenados).Should().BeTrue();
@@ -120,7 +126,7 @@ namespace LojaInformatica.API.Testes.Controllers
         [Fact]
         public void GetComOrdenacao_RetornaListaOrdenada_QuandoAOrdenacaoPorEmailForInformada()
         {
-            var ordenacaoPorEmail = new Ordenacao()
+            var ordenacaoPorEmail = new FiltroDeCliente()
             {
                 NomeParametro = "email",
                 Ascendente = true
@@ -130,7 +136,7 @@ namespace LojaInformatica.API.Testes.Controllers
             var clientesOrdenados = entidades
                 .OrderByDescending(cliente => cliente.Email);
 
-            var resultado = _clienteController.Get(nome: null, ordenacao: ordenacaoPorEmail) as OkObjectResult;
+            var resultado = _clienteController.Get(ordenacaoPorEmail) as OkObjectResult;
             var clientes = resultado.Value as IEnumerable<Cliente>;
 
             CompararEntidades(clientes, clientesOrdenados).Should().BeTrue();

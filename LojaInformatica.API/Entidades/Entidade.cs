@@ -43,12 +43,8 @@ namespace LojaInformatica.API.Entidades
             return entidades.SingleOrDefault(entidade => entidade.Id == id);
         }
 
-        public static IOrderedQueryable<TEntidade> OrdernarPor<TEntidade, TKey>(this IQueryable<TEntidade> entidades, Func<TEntidade, TKey> ordernarPor, Ordenacao ordenacao) where TEntidade : Entidade
+        public static IOrderedQueryable<TEntidade> OrdernarPor<TEntidade, TKey>(this IQueryable<TEntidade> entidades, Func<TEntidade, TKey> ordernarPor, bool ascendente = true) where TEntidade : Entidade
         {
-            var ascendente = ordenacao != null ?
-                ordenacao.Ascendente :
-                true;
-
             return ascendente ?
                 entidades.OrderBy(e => ordernarPor) :
                 entidades.OrderByDescending(e => ordernarPor);

@@ -34,15 +34,15 @@ namespace LojaInformatica.API.Entidades
             return clientes.Where(cliente => cliente.Nome == nomeExato);
         }
 
-        public static IOrderedQueryable<Cliente> OrdernarPor(this IQueryable<Cliente> clientes, Ordenacao ordenacao)
+        public static IOrderedQueryable<Cliente> OrdernarPor(this IQueryable<Cliente> clientes, string nomeDoParametro, bool ascendente)
         {
-            switch (ordenacao?.NomeParametro)
+            switch (nomeDoParametro)
             {
-                default : return clientes.OrdernarPor(cliente => cliente.Id, ordenacao);
+                default : return clientes.OrdernarPor(cliente => cliente.Id, ascendente);
                 case nameof(Cliente.Nome):
-                        return clientes.OrdernarPor(cliente => cliente.Nome, ordenacao);
+                        return clientes.OrdernarPor(cliente => cliente.Nome, ascendente);
                 case nameof(Cliente.Email):
-                        return clientes.OrdernarPor(cliente => cliente.Email, ordenacao);
+                        return clientes.OrdernarPor(cliente => cliente.Email, ascendente);
             }
         }
     }

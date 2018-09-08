@@ -16,18 +16,18 @@ namespace LojaInformatica.API.Controllers
 
         public IActionResult Get()
         {
-            return Get(null);
+            return Get(new FiltroDeCliente());
         }
 
         [HttpGet]
-        public IActionResult Get(string nome = null, Ordenacao ordenacao = null, Paginacao paginacao = null)
+        public IActionResult Get(FiltroDeCliente filtroDeCliente)
         {
             var clientes = _repositorio.Clientes;
-            if (!string.IsNullOrEmpty(nome))
-                clientes = clientes.PorNome(nome);
+            if (!string.IsNullOrEmpty(filtroDeCliente.Nome))
+                clientes = clientes.PorNome(filtroDeCliente.Nome);
 
-            clientes.OrdernarPor(ordenacao)
-                .Paginar(paginacao);
+            clientes.OrdernarPor(filtroDeCliente.NomeParametro, filtroDeCliente.Ascendente)
+                .Paginar(filtroDeCliente);
 
             return Ok(clientes);
         }
@@ -84,5 +84,10 @@ namespace LojaInformatica.API.Controllers
 
             return NoContent();
         }
+    }
+
+    public class FiltroDeCliente : Paginacao
+    {
+        public string Nome { get; set; }
     }
 }

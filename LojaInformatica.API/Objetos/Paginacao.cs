@@ -2,7 +2,7 @@ namespace LojaInformatica.API.Objetos
 {
     public class Paginacao
     {
-        public string NomeParametro { get; set; }
+        public string ParametroParaOdernacao { get; set; }
         public bool Ascendente { get; set; }
         public int Tamanho { get; set; }
         public int Pagina { get; set; }

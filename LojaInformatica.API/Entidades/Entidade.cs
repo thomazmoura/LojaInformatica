@@ -52,7 +52,7 @@ namespace LojaInformatica.API.Entidades
 
         public static IQueryable<TEntidade> Paginar<TEntidade>(this IOrderedQueryable<TEntidade> entidades, Paginacao paginacao) where TEntidade : Entidade
         {
-            if (paginacao == null)
+            if (paginacao == null || paginacao.Pagina == 0 || paginacao.Tamanho == 0)
                 return entidades;
 
             return entidades

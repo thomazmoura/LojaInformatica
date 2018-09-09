@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using LojaInformatica.API.Objetos;
 
 namespace LojaInformatica.API.Entidades
 {
@@ -9,14 +10,14 @@ namespace LojaInformatica.API.Entidades
         public string Email { get; set; }
         public Guid ChaveDeAcesso { get; set; }
 
-        internal override bool PossuiTodosOsCamposObrigatorios => !string.IsNullOrWhiteSpace(Nome)
-                && !string.IsNullOrWhiteSpace(Email);
+        internal override bool PossuiTodosOsCamposObrigatorios => !string.IsNullOrWhiteSpace(Nome) &&
+        !string.IsNullOrWhiteSpace(Email);
 
         public override bool EquivaleA(Cliente outroCliente)
         {
-            return base.EquivaleA(outroCliente)
-                && Nome == outroCliente.Nome
-                && Email == outroCliente.Email;
+            return base.EquivaleA(outroCliente) &&
+                Nome == outroCliente.Nome &&
+                Email == outroCliente.Email;
         }
     }
 
@@ -31,6 +32,23 @@ namespace LojaInformatica.API.Entidades
         public static IQueryable<Cliente> PorNomeExato(this IQueryable<Cliente> clientes, string nomeExato)
         {
             return clientes.Where(cliente => cliente.Nome == nomeExato);
+        }
+
+        public static IQueryable<Cliente> Paginar(this IQueryable<Cliente> clientes, PaginacaoDeCliente paginacaoDeCliente)
+        {
+            IOrderedQueryable<Cliente> listaOrdenada;
+            switch (paginacaoDeCliente.FiltroPorNome)
+            {
+                default : listaOrdenada = clientes.OrdernarPor(cliente => cliente.Id, paginacaoDeCliente.Ascendente);
+                break;
+                case nameof(Cliente.Nome):
+                        listaOrdenada = clientes.OrdernarPor(cliente => cliente.Nome, paginacaoDeCliente.Ascendente);
+                    break;
+                case nameof(Cliente.Email):
+                        listaOrdenada = clientes.OrdernarPor(cliente => cliente.Email, paginacaoDeCliente.Ascendente);
+                    break;
+            }
+            return listaOrdenada.Paginar(paginacaoDeCliente as Paginacao);
         }
     }
 }

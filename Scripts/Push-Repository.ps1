@@ -8,7 +8,7 @@ $pushUrl = "https://$token@github.com/thomazmoura/$repository.git";
 $branchRef = "head:$branch"
 
 if ($branch.Contains("dev") -Or $branch.Contains("master")) {
-    git.exe push $pushUrl $branchRef;
+    git.exe push --force $pushUrl $branchRef;
     Write-Host "Branch $branch updated on GitHub";
 }
 else {

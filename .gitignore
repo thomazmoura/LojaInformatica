@@ -290,4 +290,4 @@ __pycache__/
 .vscode/
 
 # Production Settings
-appSettings.Development.json
+*/appsettings.Development.json
